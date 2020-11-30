@@ -16,7 +16,7 @@ public class SearchActivity extends AppCompatActivity {
         genreText = (TextView)findViewById(R.id.genre);
         initializeTextViews();
     }
-
+//comment
     private void initializeTextViews()
     {
         //Sets doubles according to the values "pushed" from Main.java
