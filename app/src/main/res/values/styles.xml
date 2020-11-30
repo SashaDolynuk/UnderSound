@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="rounded"
+    <style name="FlatButton" parent="Theme.AppCompat.Light">
+    <item name="android:textColor">@colors/white</item>
+    <item name="android:background">@colors/teal_700</item>
+</style>
 </resources>
