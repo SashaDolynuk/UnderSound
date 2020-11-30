@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity"
-    android:background="#2E2E2E">
+    android:background="#61676b">
 
     <TextView
         android:id="@+id/text_prompt"
