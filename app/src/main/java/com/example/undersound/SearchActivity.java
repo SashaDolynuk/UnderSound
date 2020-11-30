@@ -26,6 +26,6 @@ public class SearchActivity extends AppCompatActivity {
         String currentGenre = genreText.getText().toString();
 
         //Sets the texts to display the values
-        genreText.setText(genre);
+        genreText.setText(genre); //use the string from the other class
     }
 }
