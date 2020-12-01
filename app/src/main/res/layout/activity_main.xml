@@ -9,46 +9,44 @@
     android:background="#61676b">
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
+        android:id="@+id/editTrack"
         android:layout_width="210dp"
         android:layout_height="69dp"
-        android:layout_MarginTop="50dp"
+        android:layout_above="@+id/editGenre"
+        android:layout_marginBottom="164dp"
         android:ems="10"
         android:hint="@string/edit_track"
         android:inputType="textPersonName"
-        android:layout_above="@+id/editTextTextPersonName2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editArtist"
+        app:layout_constraintVertical_bias="0.853" />
+
+    <EditText
+        android:id="@+id/editArtist"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:layout_above="@+id/editTrack"
+        android:layout_marginBottom="276dp"
+        android:ems="10"
+        android:hint="@string/edit_artist"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
-        app:layout_constraintVertical_bias="0.252" />
+        app:layout_constraintTop_toBottomOf="@id/editGenre"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="210dp"
-        android:layout_height="69dp"
-        android:layout_MarginTop="50dp"
-        android:ems="10"
-        android:hint="@string/edit_artist"
-        android:inputType="textPersonName"
-        android:layout_above="@+id/editTextTextPersonName3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName"
-        app:layout_constraintVertical_bias="0.149" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/editGenre"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:ems="10"
         android:hint="@string/edit_genre"
         android:inputType="textPersonName"
-        android:layout_MarginTop = "50dp"
-        android:layout_above="@+id/editTextTextPersonName2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -87,10 +85,12 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/button_send"
+        android:layout_marginBottom="44dp"
+        android:text="Let's Get Started"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName3" />
+        app:layout_constraintTop_toBottomOf="@+id/editTrack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
