@@ -8,27 +8,51 @@
     tools:context=".MainActivity"
     android:background="#61676b">
 
-    //style:PusherButton= "Classical";
+    <EditText
+        android:id="@+id/editTrack"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:layout_above="@+id/editGenre"
+        android:layout_marginBottom="164dp"
+        android:ems="10"
+        android:hint="@string/edit_track"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editArtist"
+        app:layout_constraintVertical_bias="0.853" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName3"
-        android:layout_width="209dp"
-        android:layout_height="56dp"
+        android:id="@+id/editArtist"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:layout_above="@+id/editTrack"
+        android:layout_marginBottom="276dp"
         android:ems="10"
+        android:hint="@string/edit_artist"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="486dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editGenre"
+        app:layout_constraintVertical_bias="1.0" />
 
     <EditText
-        android:id="@+id/editTextTextPersonName2"
-        android:layout_width="209dp"
-        android:layout_height="56dp"
+        android:id="@+id/editGenre"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
         android:ems="10"
+        android:hint="@string/edit_genre"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="376dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_prompt"
+        app:layout_constraintVertical_bias="0.111" />
 
     <TextView
         android:id="@+id/text_prompt"
@@ -57,22 +81,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.08" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="209dp"
-        android:layout_height="56dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="272dp" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Button"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="573dp" />
+        android:layout_marginBottom="44dp"
+        android:text="Let's Get Started"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTrack" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

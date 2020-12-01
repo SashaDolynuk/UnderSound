@@ -7,19 +7,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    private Button classical;
-    private Button pop;
-    private Button rock;
-    private Button rap;
-    private Button country;
-    private Button jazz;
+    private Button startbutton;
+    private EditText genretext;
+    private EditText artisttext;
+    private EditText tracktext;
 
     public static final String TAG_GENRE = "genre";
+    public static final String TAG_ARTIST = "artist";
+    public static final String TAG_TRACK = "track";
     private static final String TAG_DEBUG = MainActivity.class.getName();
 
     @Override
@@ -27,19 +28,12 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        classical = (Button) findViewById(R.id.classical);
-        pop = (Button) findViewById(R.id.pop);
-        rock = (Button) findViewById(R.id.rock);
-        rap = (Button) findViewById(R.id.rap);
-        jazz = (Button) findViewById(R.id.jazz);
-        country = (Button) findViewById(R.id.country);
+        genretext = (EditText) findViewById(R.id.editGenre);
+        artisttext = (EditText) findViewById(R.id.editArtist);
+        tracktext = (EditText) findViewById(R.id.editTrack);
+        startbutton = (Button) findViewById(R.id.button);
 
-        classical.setOnClickListener(this);
-        pop.setOnClickListener(this);
-        rock.setOnClickListener(this);
-        rap.setOnClickListener(this);
-        jazz.setOnClickListener(this);
-        country.setOnClickListener(this);
+        startbutton.setOnClickListener(this);
     }
 
     @Override
@@ -47,43 +41,17 @@ public class MainActivity extends Activity implements OnClickListener {
      * as buttons are children of the view class, buttons can polymorphically be passed in. The button
      * that called the onClick is automatically fed in*/
     public void onClick(View v) {
-        String genre = "";
+        String genre = genretext.getText().toString();
+        String artist = artisttext.getText().toString();
+        String track = tracktext.getText().toString();
+
         //The switch statements grab the id values of the button pressed and calculates the tip accordingly
-        switch (v.getId()) {
 
-            case R.id.jazz: {
-                genre = "jazz";
-                break;
-            }
-            case R.id.classical: {
-                genre = "classical";
-                break;
-            }
-            case R.id.pop: {
-                genre = "pop";
-                break;
-            }
-            case R.id.country: {
-                genre = "country";
-                break;
-            }
-            case R.id.rock: {
-                genre = "rock";
-                break;
-            }
-            case R.id.rap: {
-                genre = "rap";
-                break;
-            }
-            default: {
-                break;
-            }
-        }
 
-        launchResultActivity(genre);
+        launchResultActivity(genre, artist, track);
     }
 
-    private void launchResultActivity(String genre)
+    private void launchResultActivity(String genre, String artist, String track)
     {
         /*The intent class represents an action is used to "load" activities into a variable so they can be passed in and launched from
          * the startActivity method. Basic intents take two arguments, the current class(.java) and the class(.java) that the app will move to
@@ -96,7 +64,11 @@ public class MainActivity extends Activity implements OnClickListener {
          */
 
         resultActivity.putExtra(TAG_GENRE, genre);
+        resultActivity.putExtra(TAG_ARTIST, artist);
+        resultActivity.putExtra(TAG_TRACK, track);
         Log.d(TAG_DEBUG, "Genre: " + genre);
+        Log.d(TAG_DEBUG, "Artist: " + artist);
+        Log.d(TAG_DEBUG, "Track: " + track);
         //Launches the new activity
         startActivity(resultActivity);
     }
