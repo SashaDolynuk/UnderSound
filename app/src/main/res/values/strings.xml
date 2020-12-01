@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Under Sound</string>
+    <string name="edit_artist">Enter an artist</string>
+    <string name="edit_genre">Enter a genre</string>
+    <string name="edit_track">Enter a track</string>
+    <string name="button_send">Send</string>
 </resources>

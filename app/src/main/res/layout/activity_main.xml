@@ -10,23 +10,33 @@
 
     <EditText
         android:id="@+id/editTextTextPersonName3"
-        android:layout_width="209dp"
-        android:layout_height="56dp"
+        android:layout_width="210dp"
+        android:layout_height="66dp"
         android:ems="10"
+        android:hint="@string/edit_track"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="479dp" />
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="482dp" />
 
     <EditText
         android:id="@+id/editTextTextPersonName2"
         android:layout_width="209dp"
-        android:layout_height="56dp"
+        android:layout_height="69dp"
         android:ems="10"
+        android:hint="@string/edit_artist"
         android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="382dp" />
+        tools:layout_editor_absoluteX="101dp"
+        tools:layout_editor_absoluteY="378dp" />
+
+    <EditText
+        android:id="@+id/editTextTextPersonName"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:ems="10"
+        android:hint="@string/edit_genre"
+        android:inputType="textPersonName"
+        tools:layout_editor_absoluteX="100dp"
+        tools:layout_editor_absoluteY="267dp" />
 
     <TextView
         android:id="@+id/text_prompt"
@@ -55,55 +65,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.08" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="209dp"
-        android:layout_height="56dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        tools:layout_editor_absoluteX="159dp"
-        tools:layout_editor_absoluteY="273dp" />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get Started"
+        android:text="@string/button_send"
         tools:layout_editor_absoluteX="159dp"
         tools:layout_editor_absoluteY="573dp" />
-
-    <TextView
-        android:id="@+id/textViewGenre"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Genre: "
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="290dp" />
-
-    <TextView
-        android:id="@+id/textViewArtist"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Artist: "
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="29dp"
-        tools:layout_editor_absoluteY="398dp" />
-
-    <TextView
-        android:id="@+id/textViewTrack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Enter Track: "
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="500dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
