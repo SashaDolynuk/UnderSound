@@ -7,19 +7,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.content.Intent;
 
 public class MainActivity extends Activity implements OnClickListener {
 
-    private Button classical;
-    private Button pop;
-    private Button rock;
-    private Button rap;
-    private Button country;
-    private Button jazz;
+    private Button startbutton;
+    private EditText genretext;
+    private EditText artisttext;
+    private EditText tracktext;
 
     public static final String TAG_GENRE = "genre";
+    public static final String TAG_ARTIST = "artist";
+    public static final String TAG_TRACK = "track";
     private static final String TAG_DEBUG = MainActivity.class.getName();
 
     @Override
@@ -49,36 +50,7 @@ public class MainActivity extends Activity implements OnClickListener {
     public void onClick(View v) {
         String genre = "";
         //The switch statements grab the id values of the button pressed and calculates the tip accordingly
-        switch (v.getId()) {
 
-            case R.id.jazz: {
-                genre = "jazz";
-                break;
-            }
-            case R.id.classical: {
-                genre = "classical";
-                break;
-            }
-            case R.id.pop: {
-                genre = "pop";
-                break;
-            }
-            case R.id.country: {
-                genre = "country";
-                break;
-            }
-            case R.id.rock: {
-                genre = "rock";
-                break;
-            }
-            case R.id.rap: {
-                genre = "rap";
-                break;
-            }
-            default: {
-                break;
-            }
-        }
 
         launchResultActivity(genre);
     }
