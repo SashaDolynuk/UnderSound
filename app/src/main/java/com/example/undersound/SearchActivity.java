@@ -37,4 +37,24 @@ public class SearchActivity extends AppCompatActivity {
         //Sets the texts to display the values
         genreText.setText(genre); //use the string from the other class
     }
+
+    // get request for search for item based on track string that user enters
+    String url = "http://my-json-feed";
+
+    JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+            (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    //textView.setText("Response: " + response.toString());
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // TODO: Handle error
+
+                }
+            });
+
 }
