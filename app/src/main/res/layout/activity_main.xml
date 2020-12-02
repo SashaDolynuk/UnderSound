@@ -15,16 +15,16 @@
         android:layout_above="@+id/editGenre"
         android:layout_marginBottom="164dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
         android:hint="@string/edit_track"
         android:inputType="textPersonName"
-        android:background = "#173b82"
-        android:gravity = "center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editArtist"
-        app:layout_constraintVertical_bias="0.509" />
+        app:layout_constraintVertical_bias="0.62" />
 
     <EditText
         android:id="@+id/editArtist"
@@ -32,38 +32,39 @@
         android:layout_height="69dp"
         android:layout_above="@+id/editTrack"
         android:layout_marginBottom="276dp"
-        android:background="#173b82"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:hint="@string/edit_artist"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editGenre"
-        app:layout_constraintVertical_bias="0.516" />
+        app:layout_constraintVertical_bias="0.781" />
 
     <EditText
         android:id="@+id/editGenre"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
         android:hint="@string/edit_genre"
         android:inputType="textPersonName"
-        android:background = "#173b82"
-        android:gravity = "center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_prompt"
-        app:layout_constraintVertical_bias="0.111" />
+        app:layout_constraintVertical_bias="0.071" />
 
     <TextView
         android:id="@+id/text_prompt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
         android:text="Enter a Genre, Artist, and Track you like:"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FFFFFF"
@@ -77,8 +78,8 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="142dp"
-        android:layout_height="158dp"
+        android:layout_width="195dp"
+        android:layout_height="181dp"
         android:src="@drawable/undersound"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,12 +90,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="55dp"
         android:layout_marginBottom="44dp"
-        android:text="Let's Get Started"
-        android:background = "#000000"
-        android:textColor = "#FFFFFF"
+        android:background="#d9d9d9"
+        android:fontFamily="@font/montserrat"
+        android:text="LET'S GET STARTED!"
+        android:textColor="#173b82"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
