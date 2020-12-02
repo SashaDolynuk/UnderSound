@@ -40,3 +40,5 @@ public class SearchActivity extends AppCompatActivity {
 
     // get request for search for item based on track string that user enters
 }
+
+// show The Image in a ImageView
