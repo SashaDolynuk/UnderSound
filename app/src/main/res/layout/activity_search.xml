@@ -13,14 +13,13 @@
         android:layout_height="39dp"
         android:gravity="center"
         android:text="Based on your genre, artist and track:"
-        android:textSize="17sp"
         android:textColor="#FFFFFF"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
-        app:layout_constraintVertical_bias="0.052" />
+        app:layout_constraintVertical_bias="0.029" />
 
     <TextView
         android:id="@+id/TitleRecPage"

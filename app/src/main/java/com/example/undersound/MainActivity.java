@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -17,6 +18,7 @@ public class MainActivity extends Activity implements OnClickListener {
     private EditText genretext;
     private EditText artisttext;
     private EditText tracktext;
+    //private ImageView albumcover;
 
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
@@ -72,4 +74,11 @@ public class MainActivity extends Activity implements OnClickListener {
         //Launches the new activity
         startActivity(resultActivity);
     }
+    /*
+    private void ShowAlbum(){
+        String imageUri = "https://i.imgur.com/tGbaZCY.jpg";
+        ImageView albumcover = (ImageView) findViewById(R.id.ivBasicImage);
+        Picasso.with(context).load(imageUri).into(albumcover);
+    }
+    */
 }
