@@ -17,12 +17,14 @@
         android:ems="10"
         android:hint="@string/edit_track"
         android:inputType="textPersonName"
+        android:background = "#173b82"
+        android:gravity = "center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editArtist"
-        app:layout_constraintVertical_bias="0.853" />
+        app:layout_constraintVertical_bias="0.509" />
 
     <EditText
         android:id="@+id/editArtist"
@@ -33,12 +35,14 @@
         android:ems="10"
         android:hint="@string/edit_artist"
         android:inputType="textPersonName"
+        android:background = "#173b82"
+        android:gravity = "center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editGenre"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.736" />
 
     <EditText
         android:id="@+id/editGenre"
@@ -47,6 +51,8 @@
         android:ems="10"
         android:hint="@string/edit_genre"
         android:inputType="textPersonName"
+        android:background = "#173b82"
+        android:gravity = "center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
@@ -87,6 +93,8 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:text="Let's Get Started"
+        android:background = "#000000"
+        android:textColor = "#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
