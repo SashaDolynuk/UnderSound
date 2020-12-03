@@ -37,7 +37,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // can only access ids and set/get text from the activity_search.xml file. there is only one textview in there, editGenre2
-        genreText = (TextView) findViewById(R.id.editGenre2);
+        genreText = (TextView) findViewById(R.id.UserEntryText);
 
         initializeTextViews();
 
