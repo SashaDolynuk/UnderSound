@@ -90,8 +90,8 @@
 
     <TextView
         android:id="@+id/TrackRec"
-        android:layout_width="229dp"
-        android:layout_height="41dp"
+        android:layout_width="346dp"
+        android:layout_height="46dp"
         android:layout_marginTop="440dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/montserrat"
@@ -107,17 +107,25 @@
 
     <TextView
         android:id="@+id/ArtistRec"
-        android:layout_width="179dp"
-        android:layout_height="26dp"
+        android:layout_width="273dp"
+        android:layout_height="33dp"
         android:layout_marginBottom="92dp"
+        android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:text="TextView"
-        android:textStyle = "italic"
+        android:textColor="#OOOOOO"
         android:textSize="15sp"
-        android:textColor = "#OOOOOO"
-        android:fontFamily="@font/montserrat"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="87dp"
+        app:srcCompat="@drawable/undersound"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="639dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
