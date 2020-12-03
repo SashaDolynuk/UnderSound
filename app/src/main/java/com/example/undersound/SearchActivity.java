@@ -14,6 +14,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -25,11 +27,14 @@ public class SearchActivity extends AppCompatActivity {
     TextView artistText;
     TextView trackText;
 
-    // bigger scope for our strings
+    // carry over from user input in main, initialized in onCreate
     String genre;
     String artist;
     String track;
 
+    String trackID = "";
+    String artistID = "";
+    String recTrackName = "";
 
     // set popularity parameters
     String minPop = "5";
@@ -37,18 +42,12 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQBqrTEoFeCyGcrcFeJHTkfwDBNsNU1sUigcddmBpb59raCStFkJ4ODT6NeRBLVnsWRI2mpNZI5KSVTWZQkV9ltI0vxh0UoGZxopD9QMT3s5sl2PIOAyuV9Pkwvh-k2YfFpYyCKJu9SMNAm-6g";
+    String token = "BQC_PVgmFYH75itbYJiDYSmmHWuMBPpZ1UpWexJOlUq7cyH6hEwyH-XQIkrax2jQrB7DmGHRjTyvzdc4dBQfwt3dBdA_sj0ugEYCtaduqY-YQWu08Gjum9u4Wx9EBqRYAplwU602LTsXJWeOsw";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
-        // these are our json objects that we're getting (for parsing through)
-        // maybe get rid of these?
-        JSONObject trackJSON;
-        JSONObject artistJSON;
-        JSONObject recJSON;
 
         // Sets the strings according to the values "pushed" from Main.java
         genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
@@ -89,15 +88,26 @@ public class SearchActivity extends AppCompatActivity {
 
         // search for an item (track) using volley get request, returns json object, parse for track id
         RequestQueue queue = Volley.newRequestQueue(this);
-        String searchTrackURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track";
+        String searchTrackURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track&limit=1";
         // StringRequest or JsonObjectRequest
         JsonObjectRequest getTrackRequest = new JsonObjectRequest(Request.Method.GET, searchTrackURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // response
-                        Log.d("Response", response.toString());
+                        try {
+                            JSONObject obj = response.getJSONObject("tracks");
+                            JSONArray arr = obj.getJSONArray("items");
+                            JSONObject obj2 = arr.getJSONObject(0);
+                            // Retrieves the string labeled "id" from external_urls within 0 within items within tracks
+                            trackID = obj2.getString("id");
+                            Log.d("Response", trackID);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -121,15 +131,26 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(getTrackRequest);
 
         // search for an item (artist) using volley get request, returns json object, parse for track id
-        String searchArtistURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist";
+        String searchArtistURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist&limit=1";
         // StringRequest or JsonObjectRequest
         JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchArtistURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // response
-                        Log.d("Response", response.toString());
+                        try {
+                            JSONObject obj = response.getJSONObject("artists");
+                            JSONArray arr = obj.getJSONArray("items");
+                            JSONObject obj2 = arr.getJSONObject(0);
+                            // Retrieves the string labeled "id" from folder 0 within folder items within folder artists
+                            artistID = obj2.getString("id");
+                            Log.d("Response", artistID);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener()
@@ -152,11 +173,6 @@ public class SearchActivity extends AppCompatActivity {
         };
         queue.add(getArtistRequest);
 
-        // parse through getTrackRequest and getArtistRequest for ids
-        // these are temporary, change values to whatever is in the get request
-        String trackID = "0c6xIDDpzE81m2q797ordA";
-        String artistID = "4NHQUGzhtTLFvgF5SZesLK";
-
         // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
         String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + genre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
         JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
@@ -164,8 +180,20 @@ public class SearchActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onResponse(JSONObject response) {
-                        // response
-                        Log.d("Response", response.toString());
+                        try {
+                            JSONArray arr = response.getJSONArray("tracks");
+                            JSONObject obj = arr.getJSONObject(0);
+                            recTrackName = obj.getString("name");
+
+                            // get other info needed from jsonobject
+
+                            Log.d("Response", recTrackName);
+                        }
+                        // Try and catch are included to handle any errors due to JSON
+                        catch (JSONException e) {
+                            // If an error occurs, this prints the error to the log
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener()
