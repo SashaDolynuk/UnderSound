@@ -191,9 +191,12 @@ public class SearchActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONArray tracksArr = response.getJSONArray("tracks");
+                            Log.d("currentprob","in it");
                             JSONObject obj = tracksArr.getJSONObject(0);
+                            Log.d("currentprob","working1");
                             JSONArray artistsArr = obj.getJSONArray("artists");
                             JSONObject obj2 = artistsArr.getJSONObject(0);
+                            Log.d("currentprob","working2");
                             recArtist = obj2.getString("name");
                             recTrack = obj.getString("name");
                             recTrackID = obj.getString("id");
