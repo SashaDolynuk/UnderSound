@@ -35,7 +35,10 @@ public class SearchActivity extends AppCompatActivity {
     // store info retrieved from get requests
     String trackID = "";
     String artistID = "";
-    String recTrackName = "";
+    String recTrack = ""; // name of recommended track
+    String recArtist = ""; // name of artist of recommended track
+    String recTrackID = ""; // id of recommended track for playback
+    String albumCoverURl = ""; // album cover image of recommended track for display
 
     // set popularity parameters
     String minPop = "5";
@@ -43,7 +46,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQC_PVgmFYH75itbYJiDYSmmHWuMBPpZ1UpWexJOlUq7cyH6hEwyH-XQIkrax2jQrB7DmGHRjTyvzdc4dBQfwt3dBdA_sj0ugEYCtaduqY-YQWu08Gjum9u4Wx9EBqRYAplwU602LTsXJWeOsw";
+    String token = "BQA9BuWu-Eya1SIyXdMKwWKw6WHaL_9XtuPdALfMihAUnDDXYGFRE3oQQvWU-VtsjitTusufdn1oWr_kQxldZ5z5SewGp9JFIAi1bTWxrOGVV3GZ8TOEytlgo0-_789kTTqX3BKCU4iGGqeWnQ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -184,11 +187,15 @@ public class SearchActivity extends AppCompatActivity {
                         try {
                             JSONArray arr = response.getJSONArray("tracks");
                             JSONObject obj = arr.getJSONObject(0);
-                            recTrackName = obj.getString("name");
+                            JSONArray arr2 = obj.getJSONArray("artists");
+                            JSONObject obj3 = arr2.getJSONObject(0);
+                            recArtist = obj3.getString("artists");
+                            recTrack = obj.getString("name");
+                            recTrackID = obj.getString("id");
 
                             // get other info needed from jsonobject
 
-                            Log.d("Response", recTrackName);
+                            Log.d("Response", recTrack);
                         }
                         // Try and catch are included to handle any errors due to JSON
                         catch (JSONException e) {
