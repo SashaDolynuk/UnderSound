@@ -32,6 +32,7 @@ public class SearchActivity extends AppCompatActivity {
     String artist;
     String track;
 
+    // store info retrieved from get requests
     String trackID = "";
     String artistID = "";
     String recTrackName = "";
