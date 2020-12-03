@@ -18,7 +18,6 @@ public class MainActivity extends Activity implements OnClickListener {
     private EditText genretext;
     private EditText artisttext;
     private EditText tracktext;
-    //private ImageView albumcover;
 
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
