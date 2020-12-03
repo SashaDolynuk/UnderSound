@@ -23,10 +23,12 @@ import java.util.Map;
 
 
 public class SearchActivity extends AppCompatActivity {
-    //Holds the physical genre text, artist text
+    //Holds the physical genre text, artist text, and the recommendations
     TextView genreText;
     TextView artistText;
     TextView trackText;
+    TextView artistRec;
+    TextView trackRec;
 
     // carry over from user input in main, initialized in onCreate
     String genre;
@@ -232,6 +234,8 @@ public class SearchActivity extends AppCompatActivity {
         genreText.setText(genre); // whatever you put in here will pop up in the edited text box, rn it is just what the user input for genre
         artistText.setText(artist);
         trackText.setText(track);
+        artistRec.setText(recArtist);
+        trackRec.setText(recTrack);
     }
 }
 
