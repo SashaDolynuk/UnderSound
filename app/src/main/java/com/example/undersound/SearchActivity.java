@@ -190,11 +190,11 @@ public class SearchActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONArray arr = response.getJSONArray("tracks");
-                            JSONObject obj = arr.getJSONObject(0);
-                            JSONArray arr2 = obj.getJSONArray("artists");
-                            JSONObject obj3 = arr2.getJSONObject(0);
-                            recArtist = obj3.getString("artists");
+                            JSONArray tracksArr = response.getJSONArray("tracks");
+                            JSONObject obj = tracksArr.getJSONObject(0);
+                            JSONArray artistsArr = obj.getJSONArray("artists");
+                            JSONObject obj2 = artistsArr.getJSONObject(0);
+                            recArtist = obj2.getString("name");
                             recTrack = obj.getString("name");
                             recTrackID = obj.getString("id");
 
