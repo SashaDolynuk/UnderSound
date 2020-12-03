@@ -25,10 +25,11 @@ public class SearchActivity extends AppCompatActivity {
     TextView artistText;
     TextView trackText;
 
-    //Sets the strings according to the values "pushed" from Main.java
-    String genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
-    String artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
-    String track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
+    // bigger scope for our strings
+    String genre;
+    String artist;
+    String track;
+
 
     // set popularity parameters
     String minPop = "5";
@@ -42,6 +43,12 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+        //Sets the strings according to the values "pushed" from Main.java
+        genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
+        artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
+        track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
+
 
         // can only access ids and set/get text from the activity_search.xml file. there is only one textview in there, editGenre2
         genreText = (TextView) findViewById(R.id.UserEntryGenre);
