@@ -27,9 +27,14 @@ public class SearchActivity extends AppCompatActivity {
     TextView artistText;
     TextView trackText;
 
+    //Sets the strings according to the values "pushed" from Main.java
+    String genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
+    String artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
+    String track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
+
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQAVQg497bjIi-a7P6AUFLkxADwPDfy34WYE0dQCX5XZKt9k7FoItvFEKdONsW6ixInP-a8Qted9QXoO-i8wxXXkZNXb4twE3gEBnQtUVEhDERFwpQ-sPyQdNtR56oeR8dvS9EdEGKamirl6Rw";
+    String token = "BQCAruZoG1lSp9JyQe7X1UOzawUN6N9lGe11aVLVKflELK2P5khUpYm9HziKsP4rhEOEcqa-i47cw6GqjJMrz2qWHBurFP8OpUw-vxJDtAI6SN9OS6tqZ98oxpnh8QJOzg31G5YjUFl7lDLQZQ";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +46,37 @@ public class SearchActivity extends AppCompatActivity {
 
         initializeTextViews();
 
+        // format track string correctly
+        String formatTrack = "";
+        int trackStrLen = track.length();
+        String temp = "";
+        for (int i = 0; i < trackStrLen; i++) {
+            if (track.charAt(i) != ' ') {
+                temp += track.charAt(i);
+            } else {
+                formatTrack = formatTrack + temp + "%20";
+                temp = "";
+            }
+        } formatTrack += temp;
 
-        // search for an item (track) using volley get request
-        // returns json object, parse for track id
-        String track = "watermelon%20sugar"; // figure out how to initialize with "%20" as spaces
+        // format artist string correctly
+        String formatArtist = "";
+        int artistStrLen = artist.length();
+        temp = "";
+        for (int i = 0; i < artistStrLen; i++) {
+            if (artist.charAt(i) != ' ') {
+                temp += artist.charAt(i);
+            } else {
+                formatArtist = formatArtist + temp + "%20";
+                temp = "";
+            }
+        } formatArtist += temp;
+
+        // search for an item (track) using volley get request, returns json object, parse for track id
         RequestQueue queue = Volley.newRequestQueue(this);
-        String searchURL = "https://api.spotify.com/v1/search?q=" + track + "&type=track";
+        String searchURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track";
         // StringRequest or JsonObjectRequest
-        JsonObjectRequest getRequest = new JsonObjectRequest(Request.Method.GET, searchURL, (JSONObject) null,
+        JsonObjectRequest getTrackRequest = new JsonObjectRequest(Request.Method.GET, searchURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -61,7 +89,6 @@ public class SearchActivity extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
                         Log.d("ERROR","error => "+error.toString());
                     }
                 }
@@ -76,24 +103,45 @@ public class SearchActivity extends AppCompatActivity {
                 return params;
             }
         };
-        queue.add(getRequest);
+        queue.add(getTrackRequest);
+
+        // search for an item (artist) using volley get request, returns json object, parse for track id
+        searchURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist";
+        // StringRequest or JsonObjectRequest
+        JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchURL, (JSONObject) null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        Log.d("Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR","error => "+error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Accept", "application/json");
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", "Bearer " + token);
+
+                return params;
+            }
+        };
+        queue.add(getArtistRequest);
     }
 
-    //comment
+
     private void initializeTextViews() {
-        //Sets doubles according to the values "pushed" from Main.java
-        String genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
-        String artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
-        String track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
-        //Sets the strings accordingly
-
-        //commented the following out
-
-//        String currentGenre = genreText.getText().toString();
-//        String currentArtist = artistText.getText().toString();
-//        String currentTrack = trackText.getText().toString();
         //Sets the texts to display the values
-        genreText.setText(genre); //use the string from the other class
+        genreText.setText(genre); // whatever you put in here will pop up in the edited text box, rn it is just what the user input for genre
 //        artistText.setText(artist);
 //        trackText.setText(track);
     }
