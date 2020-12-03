@@ -7,6 +7,7 @@
     tools:context=".SearchActivity"
     android:background="#61676b">
 
+
     <TextView
         android:id="@+id/editGenre2"
         android:layout_width="128dp"
@@ -18,7 +19,7 @@
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/userEntryArtist"
-        app:layout_constraintHorizontal_bias="0.822"
+        app:layout_constraintHorizontal_bias="0.541"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
         app:layout_constraintVertical_bias="0.035" />
@@ -44,10 +45,10 @@
 
     <TextView
         android:id="@+id/UserEntryGenre"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:layout_width="151dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:textColor="#FFFFFF"
@@ -59,10 +60,10 @@
 
     <TextView
         android:id="@+id/userEntryTrack"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:layout_width="151dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:textColor="#FFFFFF"
@@ -70,14 +71,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
-        app:layout_constraintVertical_bias="0.135" />
+        app:layout_constraintVertical_bias="0.137" />
 
     <TextView
         android:id="@+id/userEntryArtist"
-        android:layout_width="92dp"
-        android:layout_height="30dp"
-        android:layout_marginEnd="84dp"
-        android:layout_marginRight="84dp"
+        android:layout_width="151dp"
+        android:layout_height="31dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:textColor="#FFFFFF"
@@ -85,6 +86,46 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
-        app:layout_constraintVertical_bias="0.086" />
+        app:layout_constraintVertical_bias="0.084" />
+
+    <TextView
+        android:id="@+id/TrackRec"
+        android:layout_width="346dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="440dp"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#000000"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ArtistRec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TitleRecPage" />
+
+    <TextView
+        android:id="@+id/ArtistRec"
+        android:layout_width="273dp"
+        android:layout_height="33dp"
+        android:layout_marginBottom="92dp"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:text="TextView"
+        android:textColor="#OOOOOO"
+        android:textSize="15sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="100dp"
+        android:layout_height="87dp"
+        app:srcCompat="@drawable/undersound"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="639dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,7 @@ import java.util.Map;
 
 
 public class SearchActivity extends AppCompatActivity {
+    //Holds the physical genre text, artist text
     TextView genreText;
     TextView artistText;
     TextView trackText;
