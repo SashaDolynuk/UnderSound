@@ -42,8 +42,9 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // can only access ids and set/get text from the activity_search.xml file. there is only one textview in there, editGenre2
-        genreText = (TextView) findViewById(R.id.UserEntryText);
-
+        genreText = (TextView) findViewById(R.id.UserEntryGenre);
+        artistText = (TextView) findViewById(R.id.userEntryArtist);
+        trackText = (TextView) findViewById(R.id.userEntryTrack);
         initializeTextViews();
 
         // format track string correctly
@@ -142,8 +143,8 @@ public class SearchActivity extends AppCompatActivity {
     private void initializeTextViews() {
         //Sets the texts to display the values
         genreText.setText(genre); // whatever you put in here will pop up in the edited text box, rn it is just what the user input for genre
-//        artistText.setText(artist);
-//        trackText.setText(track);
+        artistText.setText(artist);
+        trackText.setText(track);
     }
 
     // get request for search for item based on track string that user enters
