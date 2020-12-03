@@ -65,6 +65,8 @@ public class SearchActivity extends AppCompatActivity {
         genreText = (TextView) findViewById(R.id.UserEntryGenre);
         artistText = (TextView) findViewById(R.id.userEntryArtist);
         trackText = (TextView) findViewById(R.id.userEntryTrack);
+        artistRec = (TextView) findViewById(R.id.ArtistRec);
+        trackRec = (TextView) findViewById(R.id.TrackRec);
         initializeTextViews();
 
         // format track string correctly
