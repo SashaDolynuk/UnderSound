@@ -130,4 +130,16 @@
         app:layout_constraintTop_toBottomOf="@+id/ArtistRec"
         app:srcCompat="@drawable/undersound" />
 
+    <ImageView
+        android:id="@+id/AlbumCover"
+        android:layout_width="266dp"
+        android:layout_height="257dp"
+        app:layout_constraintBottom_toTopOf="@+id/TrackRec"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.91"
+        app:srcCompat="@android:drawable/gallery_thumb" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
