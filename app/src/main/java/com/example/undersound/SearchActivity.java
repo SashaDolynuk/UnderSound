@@ -16,8 +16,6 @@ import com.android.volley.toolbox.Volley;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,9 +30,13 @@ public class SearchActivity extends AppCompatActivity {
     String artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
     String track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
 
+    // set popularity parameters
+    String minPop = "5";
+    String maxPop = "50";
+
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQCAruZoG1lSp9JyQe7X1UOzawUN6N9lGe11aVLVKflELK2P5khUpYm9HziKsP4rhEOEcqa-i47cw6GqjJMrz2qWHBurFP8OpUw-vxJDtAI6SN9OS6tqZ98oxpnh8QJOzg31G5YjUFl7lDLQZQ";
+    String token = "BQBqrTEoFeCyGcrcFeJHTkfwDBNsNU1sUigcddmBpb59raCStFkJ4ODT6NeRBLVnsWRI2mpNZI5KSVTWZQkV9ltI0vxh0UoGZxopD9QMT3s5sl2PIOAyuV9Pkwvh-k2YfFpYyCKJu9SMNAm-6g";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +77,9 @@ public class SearchActivity extends AppCompatActivity {
 
         // search for an item (track) using volley get request, returns json object, parse for track id
         RequestQueue queue = Volley.newRequestQueue(this);
-        String searchURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track";
+        String searchTrackURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track";
         // StringRequest or JsonObjectRequest
-        JsonObjectRequest getTrackRequest = new JsonObjectRequest(Request.Method.GET, searchURL, (JSONObject) null,
+        JsonObjectRequest getTrackRequest = new JsonObjectRequest(Request.Method.GET, searchTrackURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -107,9 +109,9 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(getTrackRequest);
 
         // search for an item (artist) using volley get request, returns json object, parse for track id
-        searchURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist";
+        String searchArtistURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist";
         // StringRequest or JsonObjectRequest
-        JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchURL, (JSONObject) null,
+        JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchArtistURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
@@ -137,6 +139,42 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
         queue.add(getArtistRequest);
+
+        // parse through getTrackRequest and getArtistRequest for ids
+        // these are temporary, change values to whatever is in the get request
+        String trackID = "0c6xIDDpzE81m2q797ordA";
+        String artistID = "4NHQUGzhtTLFvgF5SZesLK";
+
+        // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
+        String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + genre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
+        JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
+                new Response.Listener<JSONObject>()
+                {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        // response
+                        Log.d("Response", response.toString());
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("ERROR","error => "+error.toString());
+                    }
+                }
+        ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("Accept", "application/json");
+                params.put("Content-Type", "application/json");
+                params.put("Authorization", "Bearer " + token);
+
+                return params;
+            }
+        };
+        queue.add(getRecRequest);
     }
 
 
@@ -146,8 +184,6 @@ public class SearchActivity extends AppCompatActivity {
         artistText.setText(artist);
         trackText.setText(track);
     }
-
-    // get request for search for item based on track string that user enters
 }
 
 // show The Image in a ImageView
