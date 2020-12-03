@@ -49,7 +49,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQA9BuWu-Eya1SIyXdMKwWKw6WHaL_9XtuPdALfMihAUnDDXYGFRE3oQQvWU-VtsjitTusufdn1oWr_kQxldZ5z5SewGp9JFIAi1bTWxrOGVV3GZ8TOEytlgo0-_789kTTqX3BKCU4iGGqeWnQ";
+    String token = "BQDmmjismBoDc6RJki3y92s9O77Ehr2tX-4GJN_evylqugRZqvA-VoRAZMaAskgnqFuYglBrsstlojp8pVdSPy1K9fxya9krfwlqdsTSCxtiJRxzLp6CsLQJWsZhJkXZNapIm7-P";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
