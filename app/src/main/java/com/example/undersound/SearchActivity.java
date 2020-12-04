@@ -52,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
     String genre;
     String artist;
     String track;
+    String formatGenre = "";
 
     // store info retrieved from get requests
     String trackID = "";
@@ -62,12 +63,12 @@ public class SearchActivity extends AppCompatActivity {
     String albumCoverURL = ""; // album cover image of recommended track for display
 
     // set popularity parameters
-    String minPop = "5";
-    String maxPop = "30";
+    String minPop = "1";
+    String maxPop = "10";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQCYdmDqoAMWktG1D3plZy3TEW3rjh9g4UuG6lxhFJccWagvXiqbsYe9hiVOUZbUaUO5ssOUuhMBi0FiImj2JmZtNURkyIy4Imkj1c_rBfTuCuNVTgz9Z3wc9PTFcpjIaMhtVq0rFKScPjVXvg";
+    String token = "BQBg840LzYo4qu_xYpM2yPBXES4abTLuM0AakU4-v5N8tyAeppzPv1oEsNecoUsBr39D10aLwGbx6TZ5vwL8XioUwZxpF_2FiPHq8XTS6Cbt2mWvgrradXFJ136j4cWK5TjH1ePRpIJ1wBIRKw";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -149,7 +150,6 @@ public class SearchActivity extends AppCompatActivity {
         initializeTextViews();
 
         // format genre string correctly
-        String formatGenre = "";
         String temp = "";
         for (int i = 0; i < genre.length(); i++) {
             if (genre.charAt(i) != ' ') {
@@ -245,11 +245,69 @@ public class SearchActivity extends AppCompatActivity {
                             // Retrieves the string labeled "id" from folder 0 within folder items within folder artists
                             artistID = obj2.getString("id");
                             Log.d("Response", artistID);
+
+                            // on response, get recommendations
+                            // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
+                            Log.d("artist id",artistID);
+                            String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + formatGenre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
+                            Log.d("search url", recURL);
+                            JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
+                                    new Response.Listener<JSONObject>()
+                                    {
+                                        @Override
+                                        public void onResponse(JSONObject response) {
+                                            try {
+                                                // get track name, artist name, track id (for playing), and image url (for image) from json
+                                                Log.d("JSON Response", response.toString());
+                                                JSONArray tracksArr = response.getJSONArray("tracks");
+                                                JSONObject obj = tracksArr.getJSONObject(0);
+                                                JSONArray artistsArr = obj.getJSONArray("artists");
+                                                JSONObject obj2 = artistsArr.getJSONObject(0);
+                                                JSONObject albumObj = obj.getJSONObject("album");
+                                                JSONArray imagesArr = albumObj.getJSONArray("images");
+                                                JSONObject obj3 = imagesArr.getJSONObject(0);
+                                                recArtist = obj2.getString("name");
+                                                recTrack = obj.getString("name");
+                                                recTrackID = obj.getString("id");
+                                                albumCoverURL = obj3.getString("url");
+
+
+                                                Log.d("Track Name", recTrack);
+                                                Log.d("Track Artist", recArtist);
+                                                Log.d("Track ID", recTrackID);
+                                                Log.d("Album Image", albumCoverURL);
+                                            }
+                                            catch (JSONException e) {
+                                                // If an error occurs, this prints the error to the log
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    },
+                                    new Response.ErrorListener()
+                                    {
+                                        @Override
+                                        public void onErrorResponse(VolleyError error) {
+                                            Log.d("ERROR","error => "+error.toString());
+                                        }
+                                    }
+                            ) {
+                                @Override
+                                public Map<String, String> getHeaders() throws AuthFailureError {
+                                    Map<String, String>  params = new HashMap<String, String>();
+                                    params.put("Accept", "application/json");
+                                    params.put("Content-Type", "application/json");
+                                    params.put("Authorization", "Bearer " + token);
+
+                                    return params;
+                                }
+                            };
+                            queue.add(getRecRequest);
                         }
                         // Try and catch are included to handle any errors due to JSON
                         catch (JSONException e) {
                             // If an error occurs, this prints the error to the log
                             e.printStackTrace();
+                            Log.d("catch",":(");
                         }
                     }
                 },
@@ -272,61 +330,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
         queue.add(getArtistRequest);
-
-        // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
-        String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + formatGenre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
-        JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
-                new Response.Listener<JSONObject>()
-                {
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        try {
-                            // get track name, artist name, track id (for playing), and image url (for image) from json
-                            Log.d("search url", recURL);
-                            Log.d("JSON Response", response.toString());
-                            JSONArray tracksArr = response.getJSONArray("tracks");
-                            JSONObject obj = tracksArr.getJSONObject(0);
-                            JSONArray artistsArr = obj.getJSONArray("artists");
-                            JSONObject obj2 = artistsArr.getJSONObject(0);
-                            JSONObject albumObj = obj.getJSONObject("album");
-                            JSONArray imagesArr = albumObj.getJSONArray("images");
-                            JSONObject obj3 = imagesArr.getJSONObject(0);
-                            recArtist = obj2.getString("name");
-                            recTrack = obj.getString("name");
-                            recTrackID = obj.getString("id");
-                            albumCoverURL = obj3.getString("url");
-
-
-                            Log.d("Track Name", recTrack);
-                            Log.d("Track Artist", recArtist);
-                            Log.d("Track ID", recTrackID);
-                            Log.d("Album Image", albumCoverURL);
-                        }
-                        catch (JSONException e) {
-                            // If an error occurs, this prints the error to the log
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener()
-                {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.d("ERROR","error => "+error.toString());
-                    }
-                }
-        ) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String>  params = new HashMap<String, String>();
-                params.put("Accept", "application/json");
-                params.put("Content-Type", "application/json");
-                params.put("Authorization", "Bearer " + token);
-
-                return params;
-            }
-        };
-        queue.add(getRecRequest);
     }
 
 
