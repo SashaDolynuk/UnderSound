@@ -218,6 +218,8 @@ public class SearchActivity extends AppCompatActivity {
                                                 recTrack = obj.getString("name");
                                                 recTrackID = obj.getString("id");
                                                 albumCoverURL = obj3.getString("url");
+
+                                                //Display album cover via Picasso
                                                 ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
                                                 Picasso.get().load(albumCoverURL).into(album_artwork);
 
@@ -320,7 +322,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // Connected
     private void connected() {
-        // Play a song!
+        // Play the recommended track!
         mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
 
         // Pauses song! Need a button for this
