@@ -3,6 +3,7 @@ package com.example.undersound;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import android.util.Log;
 
@@ -41,6 +42,9 @@ import com.spotify.protocol.types.Track;
 import com.squareup.picasso.Picasso;
 
 public class SearchActivity extends AppCompatActivity {
+    //Pause/Play button
+    Button PausePlay;
+
     //Holds the physical genre text, artist text, and the recommendations
     TextView genreText;
     TextView artistText;
@@ -64,72 +68,16 @@ public class SearchActivity extends AppCompatActivity {
 
     // set popularity parameters
     String minPop = "1";
-    String maxPop = "10";
+    String maxPop = "5";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQBg840LzYo4qu_xYpM2yPBXES4abTLuM0AakU4-v5N8tyAeppzPv1oEsNecoUsBr39D10aLwGbx6TZ5vwL8XioUwZxpF_2FiPHq8XTS6Cbt2mWvgrradXFJ136j4cWK5TjH1ePRpIJ1wBIRKw";
+    String token = "BQB_bEBOkRtbT1BA015xS-Vpp1TJEl1nfw07d4Sld_ju2e6PdqD_iRMK8htj5YAaFahhTJtFtpSC-XnYULjZ_D35nWuBJuzM9Ay2TQvF0MteCizIljWYs1KcTZ8ZcdlXAAqrYZHqKHSWwoi9ghlDKIpTK6DCuifHUK4";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
     private static final String REDIRECT_URI = "com.example.spotifyapp://callback/";
     private SpotifyAppRemote mSpotifyAppRemote;
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        ConnectionParams connectionParams =
-                new ConnectionParams.Builder(CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URI)
-                        .showAuthView(true)
-                        .build();
-
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
-
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("MainActivity", "Connected! Yay!");
-
-
-                        // Now you can start interacting with App Remote
-                        connected();
-                        Log.d("MainActivity","Connected. Mine yuh");
-                    }
-
-                    public void onFailure(Throwable throwable) {
-                        Log.e("MyActivity", throwable.getMessage(), throwable);
-
-                        // Something went wrong when attempting to connect! Handle errors here
-                    }
-                });
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
-    }
-
-    // Connected
-    private void connected() {
-        // Find album cover via Picasso
-        ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
-        Picasso.get().load("https://i.scdn.co/image/b2163e7456f3d618a0e2a4e32bc892d6b11ce673").into(album_artwork);
-        // Play a playlist
-        mSpotifyAppRemote.getPlayerApi().play("spotify:playlist:37i9dQZF1DX2sUQwD7tbmL");
-
-        // Subscribe to PlayerState
-        mSpotifyAppRemote.getPlayerApi()
-                .subscribeToPlayerState()
-                .setEventCallback(playerState -> {
-                    final Track track = playerState.track;
-                    if (track != null) {
-                        Log.d("MainActivity", track.name + " by " + track.artist.name);
-                        album_artwork.setImageResource(track.imageUri.hashCode());
-                    }
-                });
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,8 +93,8 @@ public class SearchActivity extends AppCompatActivity {
         genreText = (TextView) findViewById(R.id.UserEntryGenre);
         artistText = (TextView) findViewById(R.id.userEntryArtist);
         trackText = (TextView) findViewById(R.id.userEntryTrack);
-        artistRec = (TextView) findViewById(R.id.ArtistRec);
-        trackRec = (TextView) findViewById(R.id.TrackRec);
+        artistRec = (TextView) findViewById(R.id.recArtist);
+        trackRec = (TextView) findViewById(R.id.recTrack);
         initializeTextViews();
 
         // format genre string correctly
@@ -270,6 +218,8 @@ public class SearchActivity extends AppCompatActivity {
                                                 recTrack = obj.getString("name");
                                                 recTrackID = obj.getString("id");
                                                 albumCoverURL = obj3.getString("url");
+                                                ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
+                                                Picasso.get().load(albumCoverURL).into(album_artwork);
 
 
                                                 Log.d("Track Name", recTrack);
@@ -332,6 +282,67 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(getArtistRequest);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ConnectionParams connectionParams =
+                new ConnectionParams.Builder(CLIENT_ID)
+                        .setRedirectUri(REDIRECT_URI)
+                        .showAuthView(true)
+                        .build();
+
+        SpotifyAppRemote.connect(this, connectionParams,
+                new Connector.ConnectionListener() {
+
+                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                        mSpotifyAppRemote = spotifyAppRemote;
+                        Log.d("SearchActivity", "Connected! Yay!");
+
+
+                        // Now you can start interacting with App Remote
+                        connected();
+                        Log.d("SearchActivity","Connected. Mine yuh");
+                    }
+
+                    public void onFailure(Throwable throwable) {
+                        Log.e("SearchActivity", throwable.getMessage(), throwable);
+
+                        // Something went wrong when attempting to connect! Handle errors here
+                    }
+                });
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        SpotifyAppRemote.disconnect(mSpotifyAppRemote);
+    }
+
+    // Connected
+    private void connected() {
+        // Play a song!
+        mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
+
+        // Pauses song! Need a button for this
+        //mSpotifyAppRemote.getPlayerApi().pause();
+
+
+        // Subscribe to PlayerState -- NOT NECESSARY
+        /*mSpotifyAppRemote.getPlayerApi()
+                .subscribeToPlayerState()
+                .setEventCallback(playerState -> {
+                    final Track track = playerState.track;
+                    if (track != null) {
+                        Log.d("SearchActivity", track.name + " by " + track.artist.name);
+                        //album_artwork.setImageResource(track.imageUri.hashCode());
+                    }
+                });
+         */
+    }
+
+    //private void onPlayClick() {
+    //    this.player.togglePlay();
+    //}
 
     private void initializeTextViews() {
         //Sets the texts to display the values
