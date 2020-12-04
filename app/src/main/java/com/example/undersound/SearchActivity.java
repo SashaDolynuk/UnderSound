@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQB_bEBOkRtbT1BA015xS-Vpp1TJEl1nfw07d4Sld_ju2e6PdqD_iRMK8htj5YAaFahhTJtFtpSC-XnYULjZ_D35nWuBJuzM9Ay2TQvF0MteCizIljWYs1KcTZ8ZcdlXAAqrYZHqKHSWwoi9ghlDKIpTK6DCuifHUK4";
+    String token = "BQAJIq8-y8fr_CjffPtWy37lB299UM3j4_aFPf1UvYDNEcLdsAzGSG45o_Osbk0mbaoHjDSckkqXDAhIFLgxkMq0XsbpA23pyHvGIZ6OzAANWzLGyzpP5i2BIlM1cYAeLlyLkk2mgIl-GfkFxIajPGDX1K3cFIWEZ90";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -327,7 +327,7 @@ public class SearchActivity extends AppCompatActivity {
         //mSpotifyAppRemote.getPlayerApi().pause();
 
 
-        // Subscribe to PlayerState -- NOT NECESSARY
+        // Subscribe to PlayerState -- need for Pause/Play?
         /*mSpotifyAppRemote.getPlayerApi()
                 .subscribeToPlayerState()
                 .setEventCallback(playerState -> {
