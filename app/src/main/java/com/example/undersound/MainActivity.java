@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 import android.content.Intent;
 
 public class MainActivity extends Activity implements OnClickListener {
 
     private Button startbutton;
-    private EditText genretext;
+   // private EditText genretext;
     private EditText artisttext;
     private EditText tracktext;
+    private Spinner genretext;
 
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
@@ -29,11 +33,18 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        genretext = (EditText) findViewById(R.id.editGenre);
+        genretext = (Spinner) findViewById(R.id.editGenre); //genre assigned via spinner
         artisttext = (EditText) findViewById(R.id.editArtist);
         tracktext = (EditText) findViewById(R.id.editTrack);
         startbutton = (Button) findViewById(R.id.button);
 
+        //creates an array adapter using the string array and default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.genre_array, android.R.layout.simple_spinner_item);
+        //specifies the layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genretext.setAdapter(adapter);
+        //sets
         startbutton.setOnClickListener(this);
     }
 
@@ -41,8 +52,18 @@ public class MainActivity extends Activity implements OnClickListener {
     /*onClick is what is called when the buttons are pressed and they take in Views as arguments
      * as buttons are children of the view class, buttons can polymorphically be passed in. The button
      * that called the onClick is automatically fed in*/
+    public void onItemSelected(AdapterView<?> parent, View view,
+                               int pos, long id) {
+        // An item was selected. You can retrieve the selected item using
+        // parent.getItemAtPosition(pos)
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        // Another interface callback
+    }
+
     public void onClick(View v) {
-        String genre = genretext.getText().toString();
+        //String genre = genretext.getText().toString();
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
