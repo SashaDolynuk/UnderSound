@@ -67,12 +67,12 @@ public class SearchActivity extends AppCompatActivity {
     String albumCoverURL = ""; // album cover image of recommended track for display
 
     // set popularity parameters
-    String minPop = "1";
-    String maxPop = "5";
+    String minPop = "0";
+    String maxPop = "25";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQCYMHv1EmaPOOL4kHwIoDsrWva_4mU2uoiaZHD5JEj3kDvDUHVM01kYnW5qGU7mXG9y_RxNhY5TeSOuEeMMo7GmBw9U8870IqgouP1pbxhzL1hiXdWqPP6AQ2BtU0VA6kx9nJ0BLcmWu2N2Uw";
+    String token = "BQAM0JwqhPemhPmdJPrbA2Ww44AG-ZQT5rOk-ir5ox1pjJ9EA4iF4wxktBuzDuJkuAvPmU-WjDxEstkoowO-TgljgIpJbqdbh8B-IowEAOI8YhdO-VvVU1-9n45L-WY-1eIwL7r0nX1l_FzRrg";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -95,7 +95,7 @@ public class SearchActivity extends AppCompatActivity {
         trackText = (TextView) findViewById(R.id.userEntryTrack);
         artistRec = (TextView) findViewById(R.id.recArtist);
         trackRec = (TextView) findViewById(R.id.recTrack);
-        initializeTextViews();
+        // initializeTextViews();
 
         // format genre string correctly
         String temp = "";
@@ -219,6 +219,8 @@ public class SearchActivity extends AppCompatActivity {
                                                 recTrackID = obj.getString("id");
                                                 albumCoverURL = obj3.getString("url");
 
+                                                // display info of recommended stuff
+                                                initializeTextViews();
                                                 //Display album cover via Picasso
                                                 ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
                                                 Picasso.get().load(albumCoverURL).into(album_artwork);
@@ -356,5 +358,3 @@ public class SearchActivity extends AppCompatActivity {
     }
 
 }
-
-// show The Image in a ImageView
