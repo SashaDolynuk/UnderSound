@@ -72,11 +72,11 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQAJIq8-y8fr_CjffPtWy37lB299UM3j4_aFPf1UvYDNEcLdsAzGSG45o_Osbk0mbaoHjDSckkqXDAhIFLgxkMq0XsbpA23pyHvGIZ6OzAANWzLGyzpP5i2BIlM1cYAeLlyLkk2mgIl-GfkFxIajPGDX1K3cFIWEZ90";
+    String token = "BQCYMHv1EmaPOOL4kHwIoDsrWva_4mU2uoiaZHD5JEj3kDvDUHVM01kYnW5qGU7mXG9y_RxNhY5TeSOuEeMMo7GmBw9U8870IqgouP1pbxhzL1hiXdWqPP6AQ2BtU0VA6kx9nJ0BLcmWu2N2Uw";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
-    private static final String REDIRECT_URI = "com.example.spotifyapp://callback/";
+    private static final String REDIRECT_URI = "com.example.undersound://callback/";
     private SpotifyAppRemote mSpotifyAppRemote;
 
     @Override
