@@ -59,15 +59,15 @@ public class SearchActivity extends AppCompatActivity {
     String recTrack = ""; // name of recommended track
     String recArtist = ""; // name of artist of recommended track
     String recTrackID = ""; // id of recommended track for playback
-    String albumCoverURl = ""; // album cover image of recommended track for display
+    String albumCoverURL = ""; // album cover image of recommended track for display
 
     // set popularity parameters
     String minPop = "5";
-    String maxPop = "50";
+    String maxPop = "30";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQDmmjismBoDc6RJki3y92s9O77Ehr2tX-4GJN_evylqugRZqvA-VoRAZMaAskgnqFuYglBrsstlojp8pVdSPy1K9fxya9krfwlqdsTSCxtiJRxzLp6CsLQJWsZhJkXZNapIm7-P";
+    String token = "BQCYdmDqoAMWktG1D3plZy3TEW3rjh9g4UuG6lxhFJccWagvXiqbsYe9hiVOUZbUaUO5ssOUuhMBi0FiImj2JmZtNURkyIy4Imkj1c_rBfTuCuNVTgz9Z3wc9PTFcpjIaMhtVq0rFKScPjVXvg";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -148,11 +148,22 @@ public class SearchActivity extends AppCompatActivity {
         trackRec = (TextView) findViewById(R.id.TrackRec);
         initializeTextViews();
 
+        // format genre string correctly
+        String formatGenre = "";
+        String temp = "";
+        for (int i = 0; i < genre.length(); i++) {
+            if (genre.charAt(i) != ' ') {
+                temp += genre.charAt(i);
+            } else {
+                formatGenre = formatGenre + temp + "%20";
+                temp = "";
+            }
+        } formatGenre += temp;
+
         // format track string correctly
         String formatTrack = "";
-        int trackStrLen = track.length();
-        String temp = "";
-        for (int i = 0; i < trackStrLen; i++) {
+        temp = "";
+        for (int i = 0; i < track.length(); i++) {
             if (track.charAt(i) != ' ') {
                 temp += track.charAt(i);
             } else {
@@ -163,9 +174,8 @@ public class SearchActivity extends AppCompatActivity {
 
         // format artist string correctly
         String formatArtist = "";
-        int artistStrLen = artist.length();
         temp = "";
-        for (int i = 0; i < artistStrLen; i++) {
+        for (int i = 0; i < artist.length(); i++) {
             if (artist.charAt(i) != ' ') {
                 temp += artist.charAt(i);
             } else {
@@ -219,7 +229,9 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(getTrackRequest);
 
         // search for an item (artist) using volley get request, returns json object, parse for track id
+        Log.d("artist name",formatArtist);
         String searchArtistURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist&limit=1";
+        Log.d("artist url",searchArtistURL); // delete this
         // StringRequest or JsonObjectRequest
         JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchArtistURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
@@ -262,29 +274,34 @@ public class SearchActivity extends AppCompatActivity {
         queue.add(getArtistRequest);
 
         // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
-        String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + genre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
+        String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + formatGenre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
         JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
+                            // get track name, artist name, track id (for playing), and image url (for image) from json
+                            Log.d("search url", recURL);
+                            Log.d("JSON Response", response.toString());
                             JSONArray tracksArr = response.getJSONArray("tracks");
-                            Log.d("currentprob","in it");
                             JSONObject obj = tracksArr.getJSONObject(0);
-                            Log.d("currentprob","working1");
                             JSONArray artistsArr = obj.getJSONArray("artists");
                             JSONObject obj2 = artistsArr.getJSONObject(0);
-                            Log.d("currentprob","working2");
+                            JSONObject albumObj = obj.getJSONObject("album");
+                            JSONArray imagesArr = albumObj.getJSONArray("images");
+                            JSONObject obj3 = imagesArr.getJSONObject(0);
                             recArtist = obj2.getString("name");
                             recTrack = obj.getString("name");
                             recTrackID = obj.getString("id");
+                            albumCoverURL = obj3.getString("url");
 
-                            // get other info needed from jsonobject
 
-                            Log.d("Response", recTrack);
+                            Log.d("Track Name", recTrack);
+                            Log.d("Track Artist", recArtist);
+                            Log.d("Track ID", recTrackID);
+                            Log.d("Album Image", albumCoverURL);
                         }
-                        // Try and catch are included to handle any errors due to JSON
                         catch (JSONException e) {
                             // If an error occurs, this prints the error to the log
                             e.printStackTrace();
@@ -315,7 +332,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void initializeTextViews() {
         //Sets the texts to display the values
-        genreText.setText(genre); // whatever you put in here will pop up in the edited text box, rn it is just what the user input for genre
+        genreText.setText(genre);
         artistText.setText(artist);
         trackText.setText(track);
         artistRec.setText(recArtist);
