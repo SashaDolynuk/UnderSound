@@ -93,7 +93,6 @@
         android:id="@+id/editGenre"
         android:layout_width="210dp"
         android:layout_height="69dp"
-        android:hint = "@string/edit_genre"
         android:gravity = "center"
         android:fontFamily = "@font/montserrat"
         android:textColor = "#FFFFFF"

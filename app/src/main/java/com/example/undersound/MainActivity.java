@@ -2,6 +2,8 @@ package com.example.undersound;
 
 import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -59,20 +62,24 @@ public class MainActivity extends Activity implements OnClickListener {
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
+        if (pos == 0){
+            pos = 1;
+        }
         String tempgenre = parent.getItemAtPosition(pos).toString();
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + tempgenre, Toast.LENGTH_LONG).show();
+        //puts the string in a global variable
         genre = tempgenre;
     }
 
-
+    //leaves it be
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
+
     @Override
     public void onClick(View v) {
-        //String genre = ;
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
@@ -80,6 +87,7 @@ public class MainActivity extends Activity implements OnClickListener {
         Intent intent= new Intent(MainActivity.this,SearchActivity.class);
         intent.putExtra("data",String.valueOf(genretext.getSelectedItem()));
 
+        //includes global variable genre
         launchResultActivity(genre, artist, track);
     }
 
