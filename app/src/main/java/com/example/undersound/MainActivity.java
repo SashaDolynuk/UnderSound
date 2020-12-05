@@ -26,7 +26,9 @@ public class MainActivity extends Activity implements OnClickListener {
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
     public static final String TAG_TRACK = "track";
+    private String genre;
     private static final String TAG_DEBUG = MainActivity.class.getName();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,27 +50,35 @@ public class MainActivity extends Activity implements OnClickListener {
         startbutton.setOnClickListener(this);
     }
 
-    @Override
+
     /*onClick is what is called when the buttons are pressed and they take in Views as arguments
      * as buttons are children of the view class, buttons can polymorphically be passed in. The button
      * that called the onClick is automatically fed in*/
+
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
         // An item was selected. You can retrieve the selected item using
         // parent.getItemAtPosition(pos)
+        String tempgenre = parent.getItemAtPosition(pos).toString();
+
+        // Showing selected spinner item
+        Toast.makeText(parent.getContext(), "Selected: " + tempgenre, Toast.LENGTH_LONG).show();
+        genre = tempgenre;
     }
+
 
     public void onNothingSelected(AdapterView<?> parent) {
         // Another interface callback
     }
-
+    @Override
     public void onClick(View v) {
-        //String genre = genretext.getText().toString();
+        //String genre = ;
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
         //The switch statements grab the id values of the button pressed and calculates the tip accordingly
-
+        Intent intent= new Intent(MainActivity.this,SearchActivity.class);
+        intent.putExtra("data",String.valueOf(genretext.getSelectedItem()));
 
         launchResultActivity(genre, artist, track);
     }
