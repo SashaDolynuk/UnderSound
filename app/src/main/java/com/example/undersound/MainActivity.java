@@ -2,6 +2,8 @@ package com.example.undersound;
 
 import android.app.Activity;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.content.Intent;
 
@@ -50,36 +53,41 @@ public class MainActivity extends Activity implements OnClickListener {
         startbutton.setOnClickListener(this);
     }
 
-
-    /*onClick is what is called when the buttons are pressed and they take in Views as arguments
-     * as buttons are children of the view class, buttons can polymorphically be passed in. The button
-     * that called the onClick is automatically fed in*/
-
+    // when something in spinner is selected
     public void onItemSelected(AdapterView<?> parent, View view,
                                int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        // parent.getItemAtPosition(pos)
+        // An item was selected. You can retrieve the selected item using parent.getItemAtPosition(pos)
+        if (pos == 0){
+            Toast.makeText(MainActivity.this, "Please enter a valid genre!", Toast.LENGTH_LONG).show();
+            pos = 1;
+        }
         String tempgenre = parent.getItemAtPosition(pos).toString();
 
         // Showing selected spinner item
         Toast.makeText(parent.getContext(), "Selected: " + tempgenre, Toast.LENGTH_LONG).show();
+        //puts the string in a global variable
         genre = tempgenre;
     }
 
-
+    //leaves it be
     public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
+        Toast.makeText(MainActivity.this, "Please enter a valid genre!", Toast.LENGTH_LONG).show();
     }
+
     @Override
     public void onClick(View v) {
-        //String genre = ;
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
-        //The switch statements grab the id values of the button pressed and calculates the tip accordingly
-        Intent intent= new Intent(MainActivity.this,SearchActivity.class);
-        intent.putExtra("data",String.valueOf(genretext.getSelectedItem()));
+        if (artist.length() == 0 || track.length() == 0) {
+            Toast.makeText(MainActivity.this, "Please enter a valid artist and track!", Toast.LENGTH_LONG).show();
+            return;
+        }
 
+//      Intent intent= new Intent(MainActivity.this,SearchActivity.class);
+//      intent.putExtra("data",String.valueOf(genretext.getSelectedItem())); //doesn't this happen later
+
+        //includes global variable genre
         launchResultActivity(genre, artist, track);
     }
 
@@ -92,9 +100,8 @@ public class MainActivity extends Activity implements OnClickListener {
         Intent resultActivity = new Intent(MainActivity.this, SearchActivity.class);
 
         /*Since this method is private, if we want the Result Activity/class to access it's members (the strings TAG_TIP and TAG_GRAND_TOTAL),
-         *we can "push" members from the Main Acivity/class to Result, much like how a friend function can "pull" private members from objects
+         *we can "push" members from the Main Activity/class to Result, much like how a friend function can "pull" private members from objects
          */
-
         resultActivity.putExtra(TAG_GENRE, genre);
         resultActivity.putExtra(TAG_ARTIST, artist);
         resultActivity.putExtra(TAG_TRACK, track);

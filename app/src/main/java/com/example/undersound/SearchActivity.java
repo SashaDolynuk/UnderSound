@@ -41,6 +41,10 @@ import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 import com.squareup.picasso.Picasso;
 
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
+
 public class SearchActivity extends AppCompatActivity {
     //Pause/Play button
     Button PausePlay;
@@ -67,12 +71,12 @@ public class SearchActivity extends AppCompatActivity {
     String albumCoverURL = ""; // album cover image of recommended track for display
 
     // set popularity parameters
-    String minPop = "1";
-    String maxPop = "5";
+    String minPop = "0";
+    String maxPop = "25";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQAC-pC9nkeUI6AF_jfhV7W0DyPBceRu1N-WSk5lLOPPIQC1qTi1HVQhYrRva3nEE4buESJR26HifmmOv15LlCPdoXC2H9cUGdBzPkE4XPoWH0_eLhkArezmjwYp1KMyeCG1tUULL1uhR-psz6BzjOMkBUeyyli8TO4";
+    String token = "BQBIDHHEyXY_RHrgcMJrcoCWjqloGYP3y9bgtSIgmjuJIk6E4uQaVFlRvoyRtqlsEtMwHztzue-o2f0yv8V5PKgE5tg5MsNxv0cLjJUaPicZBHGSVNCDHylFpdypfZ7gnpz-b1WTnezzS3-mtg";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -95,47 +99,15 @@ public class SearchActivity extends AppCompatActivity {
         trackText = (TextView) findViewById(R.id.userEntryTrack);
         artistRec = (TextView) findViewById(R.id.recArtist);
         trackRec = (TextView) findViewById(R.id.recTrack);
-        initializeTextViews();
 
-        // format genre string correctly
-        String temp = "";
-        for (int i = 0; i < genre.length(); i++) {
-            if (genre.charAt(i) != ' ') {
-                temp += genre.charAt(i);
-            } else {
-                formatGenre = formatGenre + temp + "%20";
-                temp = "";
-            }
-        } formatGenre += temp;
-
-        // format track string correctly
-        String formatTrack = "";
-        temp = "";
-        for (int i = 0; i < track.length(); i++) {
-            if (track.charAt(i) != ' ') {
-                temp += track.charAt(i);
-            } else {
-                formatTrack = formatTrack + temp + "%20";
-                temp = "";
-            }
-        } formatTrack += temp;
-
-        // format artist string correctly
-        String formatArtist = "";
-        temp = "";
-        for (int i = 0; i < artist.length(); i++) {
-            if (artist.charAt(i) != ' ') {
-                temp += artist.charAt(i);
-            } else {
-                formatArtist = formatArtist + temp + "%20";
-                temp = "";
-            }
-        } formatArtist += temp;
+        // format strings correctly for use in url
+        formatGenre = formatStr(genre);
+        String formatTrack = formatStr(track);
+        String formatArtist = formatStr(artist);
 
         // search for an item (track) using volley get request, returns json object, parse for track id
         RequestQueue queue = Volley.newRequestQueue(this);
         String searchTrackURL = "https://api.spotify.com/v1/search?q=" + formatTrack + "&type=track&limit=1";
-        // StringRequest or JsonObjectRequest
         JsonObjectRequest getTrackRequest = new JsonObjectRequest(Request.Method.GET, searchTrackURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
@@ -147,7 +119,6 @@ public class SearchActivity extends AppCompatActivity {
                             JSONObject obj2 = arr.getJSONObject(0);
                             // Retrieves the string labeled "id" from external_urls within 0 within items within tracks
                             trackID = obj2.getString("id");
-                            Log.d("Response", trackID);
                         }
                         // Try and catch are included to handle any errors due to JSON
                         catch (JSONException e) {
@@ -164,7 +135,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 }
         ) {
-            @Override
+            @Override // parameters for header for get request
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("Accept", "application/json");
@@ -176,11 +147,8 @@ public class SearchActivity extends AppCompatActivity {
         };
         queue.add(getTrackRequest);
 
-        // search for an item (artist) using volley get request, returns json object, parse for track id
-        Log.d("artist name",formatArtist);
+        // search for an item (artist) using volley get request, returns json object, parse for artist id
         String searchArtistURL = "https://api.spotify.com/v1/search?q=" + formatArtist + "&type=artist&limit=1";
-        Log.d("artist url",searchArtistURL); // delete this
-        // StringRequest or JsonObjectRequest
         JsonObjectRequest getArtistRequest = new JsonObjectRequest(Request.Method.GET, searchArtistURL, (JSONObject) null,
                 new Response.Listener<JSONObject>()
                 {
@@ -192,13 +160,10 @@ public class SearchActivity extends AppCompatActivity {
                             JSONObject obj2 = arr.getJSONObject(0);
                             // Retrieves the string labeled "id" from folder 0 within folder items within folder artists
                             artistID = obj2.getString("id");
-                            Log.d("Response", artistID);
 
-                            // on response, get recommendations
+                            // this is in the on response of another request so it only completes after it has all necessary info
                             // get 1 rec based on genre string (from user), generated seed artist and seed track, and popularity (set by us)
-                            Log.d("artist id",artistID);
                             String recURL = "https://api.spotify.com/v1/recommendations?limit=1&seed_artists=" + artistID + "&seed_genres=" + formatGenre + "&seed_tracks=" + trackID + "&min_popularity=" + minPop + "&max_popularity=" + maxPop;
-                            Log.d("search url", recURL);
                             JsonObjectRequest getRecRequest = new JsonObjectRequest(Request.Method.GET, recURL, (JSONObject) null,
                                     new Response.Listener<JSONObject>()
                                     {
@@ -219,18 +184,13 @@ public class SearchActivity extends AppCompatActivity {
                                                 recTrackID = obj.getString("id");
                                                 albumCoverURL = obj3.getString("url");
 
-                                                //Display album cover via Picasso
+                                                // display info of recommended stuff once all info has been retrieved
+                                                initializeTextViews();
+                                                // Display album cover via Picasso
                                                 ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
                                                 Picasso.get().load(albumCoverURL).into(album_artwork);
-
-
-                                                Log.d("Track Name", recTrack);
-                                                Log.d("Track Artist", recArtist);
-                                                Log.d("Track ID", recTrackID);
-                                                Log.d("Album Image", albumCoverURL);
                                             }
                                             catch (JSONException e) {
-                                                // If an error occurs, this prints the error to the log
                                                 e.printStackTrace();
                                             }
                                         }
@@ -259,7 +219,6 @@ public class SearchActivity extends AppCompatActivity {
                         catch (JSONException e) {
                             // If an error occurs, this prints the error to the log
                             e.printStackTrace();
-                            Log.d("catch",":(");
                         }
                     }
                 },
@@ -298,18 +257,14 @@ public class SearchActivity extends AppCompatActivity {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("SearchActivity", "Connected! Yay!");
-
-
                         // Now you can start interacting with App Remote
                         connected();
                         Log.d("SearchActivity","Connected. Mine yuh");
                     }
 
                     public void onFailure(Throwable throwable) {
+                        // Something went wrong when attempting to connect!
                         Log.e("SearchActivity", throwable.getMessage(), throwable);
-
-                        // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
     }
@@ -355,6 +310,18 @@ public class SearchActivity extends AppCompatActivity {
         trackRec.setText(recTrack);
     }
 
+    // format string correctly for use in get requests
+    private String formatStr(String toFormat) {
+        String formattedStr = "";
+        String temp = "";
+        for (int i = 0; i < toFormat.length(); i++) {
+            if (toFormat.charAt(i) != ' ') {
+                temp += toFormat.charAt(i);
+            } else {
+                formattedStr = formattedStr + temp + "%20";
+                temp = "";
+            }
+        } formattedStr += temp;
+        return formattedStr;
+    }
 }
-
-// show The Image in a ImageView
