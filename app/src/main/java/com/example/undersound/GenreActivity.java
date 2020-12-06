@@ -21,7 +21,7 @@ public class GenreActivity extends AppCompatActivity implements AdapterView.OnIt
 
     //private Button genrebutton;
     private Spinner genretext;
-    private String genre;
+    protected String genre;
     public static final String TAG_GENRE = "genre";
 
     public void onItemSelected(AdapterView<?> parent, View view,

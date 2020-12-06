@@ -19,21 +19,21 @@
         android:gravity="center"
         android:hint="@string/edit_track"
         android:inputType="textPersonName"
-        android:textColor = "#FFFFFF"
-        android:textColorHint = "#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editArtist"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintVertical_bias="0.457" />
 
     <EditText
         android:id="@+id/editArtist"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:layout_above="@+id/editTrack"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="340dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -43,7 +43,7 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/montserrat"
-        android:text="Enter a Genre, Artist, and Track you like:"
+        android:text="Enter an Artist and a Track you like:"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
