@@ -33,18 +33,38 @@
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:layout_above="@+id/editTrack"
-        android:layout_marginBottom="340dp"
+        android:layout_marginBottom="276dp"
         android:ems="10"
+        android:textColorHint = "#FFFFFF"
+        android:textColor = "#FFFFFF"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:hint="@string/edit_artist"
         android:inputType="textPersonName"
-        android:textColor="#FFFFFF"
-        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editGenre"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/editGenre"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:hint="@string/edit_genre"
+        android:textColorHint = "#FFFFFF"
+        android:textColor = "#FFFFFF"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_prompt"
+        app:layout_constraintVertical_bias="0.071" />
 
     <TextView
         android:id="@+id/text_prompt"

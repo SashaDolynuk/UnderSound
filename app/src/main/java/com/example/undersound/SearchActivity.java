@@ -85,7 +85,7 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
 
         // Sets the strings according to the values "pushed" from Main.java
-        genre = getIntent().getExtras().getString(GenreActivity.TAG_GENRE);
+        genre = getIntent().getExtras().getString(MainActivity.TAG_GENRE);
         artist = getIntent().getExtras().getString(MainActivity.TAG_ARTIST);
         track = getIntent().getExtras().getString(MainActivity.TAG_TRACK);
         if (genre != "")

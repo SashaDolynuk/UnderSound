@@ -18,9 +18,10 @@ import android.content.Intent;
 public class MainActivity extends Activity implements OnClickListener {
 
     private Button startbutton;
+    private EditText genretext;
     private EditText artisttext;
     private EditText tracktext;
-    private String genre;
+    //private String genre;
 
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
@@ -33,8 +34,8 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        genre = getIntent().getExtras().getString(GenreActivity.TAG_GENRE);
-
+        //genre = getIntent().getExtras().getString(GenreActivity.TAG_GENRE);
+        genretext = (EditText) findViewById(R.id.editGenre);
         artisttext = (EditText) findViewById(R.id.editArtist);
         tracktext = (EditText) findViewById(R.id.editTrack);
         startbutton = (Button) findViewById(R.id.button);
@@ -51,6 +52,7 @@ public class MainActivity extends Activity implements OnClickListener {
     @Override
     public void onClick(View v) {
         //String genre = ;
+        String genre = genretext.getText().toString();
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
