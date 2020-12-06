@@ -41,6 +41,10 @@ import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 import com.squareup.picasso.Picasso;
 
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
+
 public class SearchActivity extends AppCompatActivity {
     //Pause/Play button
     Button PausePlay;
@@ -72,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQAM0JwqhPemhPmdJPrbA2Ww44AG-ZQT5rOk-ir5ox1pjJ9EA4iF4wxktBuzDuJkuAvPmU-WjDxEstkoowO-TgljgIpJbqdbh8B-IowEAOI8YhdO-VvVU1-9n45L-WY-1eIwL7r0nX1l_FzRrg";
+    String token = "BQBIDHHEyXY_RHrgcMJrcoCWjqloGYP3y9bgtSIgmjuJIk6E4uQaVFlRvoyRtqlsEtMwHztzue-o2f0yv8V5PKgE5tg5MsNxv0cLjJUaPicZBHGSVNCDHylFpdypfZ7gnpz-b1WTnezzS3-mtg";
 
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -180,9 +184,9 @@ public class SearchActivity extends AppCompatActivity {
                                                 recTrackID = obj.getString("id");
                                                 albumCoverURL = obj3.getString("url");
 
-                                                // display info of recommended stuff
+                                                // display info of recommended stuff once all info has been retrieved
                                                 initializeTextViews();
-                                                //Display album cover via Picasso
+                                                // Display album cover via Picasso
                                                 ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
                                                 Picasso.get().load(albumCoverURL).into(album_artwork);
                                             }
@@ -215,7 +219,6 @@ public class SearchActivity extends AppCompatActivity {
                         catch (JSONException e) {
                             // If an error occurs, this prints the error to the log
                             e.printStackTrace();
-                            Log.d("catch",":(");
                         }
                     }
                 },
@@ -254,18 +257,14 @@ public class SearchActivity extends AppCompatActivity {
 
                     public void onConnected(SpotifyAppRemote spotifyAppRemote) {
                         mSpotifyAppRemote = spotifyAppRemote;
-                        Log.d("SearchActivity", "Connected! Yay!");
-
-
                         // Now you can start interacting with App Remote
                         connected();
                         Log.d("SearchActivity","Connected. Mine yuh");
                     }
 
                     public void onFailure(Throwable throwable) {
+                        // Something went wrong when attempting to connect!
                         Log.e("SearchActivity", throwable.getMessage(), throwable);
-
-                        // Something went wrong when attempting to connect! Handle errors here
                     }
                 });
     }
@@ -325,5 +324,4 @@ public class SearchActivity extends AppCompatActivity {
         } formattedStr += temp;
         return formattedStr;
     }
-
 }
