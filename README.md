@@ -8,17 +8,17 @@ Required libraries:
 
 VOLLEY LIBRARY
 Volley is an HTTP library that makes networking for Android apps easier and, most importantly, faster.
-download at https://github.com/google/volley
+Download at https://github.com/google/volley
 
 PICASSO LIBRARY
 A powerful image downloading and caching library for Android.
-download at https://github.com/square/picasso
+Download at https://github.com/square/picasso
 
 SPOTIFY APP REMOTE LIBRARY
 The Spotify App Remote SDK allows your application to interact with the Spotify app running in the background as a service.
 Used for playback.
-download at https://github.com/spotify/android-sdk/blob/master/app-remote-lib/README.md
+Download at https://github.com/spotify/android-sdk/blob/master/app-remote-lib/README.md
 
 SPOTIFY AUTHENTICATION LIBRARY
 This library is responsible for authenticating the user and fetching the access token that can subsequently be used to play music or in requests to the Spotify Web API.
-download at https://github.com/spotify/android-auth/releases
+Download at https://github.com/spotify/android-auth/releases
