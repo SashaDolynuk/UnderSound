@@ -32,16 +32,16 @@
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:inputType="textPersonName"
-        android:text="Your Recommendations"
+        android:text="Your Recommendation"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
+        app:layout_constraintHorizontal_bias="0.291"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.069" />
+        app:layout_constraintVertical_bias="0.067" />
 
     <TextView
         android:id="@+id/UserEntryGenre"
