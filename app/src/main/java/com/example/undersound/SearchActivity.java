@@ -22,12 +22,15 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.spotify.android.appremote.api.error.CouldNotFindSpotifyApp;
-import com.spotify.android.appremote.api.error.NotLoggedInException;
-import com.spotify.android.appremote.api.error.UserNotAuthorizedException;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import com.spotify.android.appremote.api.ConnectionParams;
+import com.spotify.android.appremote.api.Connector;
+import com.spotify.android.appremote.api.PlayerApi;
+import com.spotify.android.appremote.api.SpotifyAppRemote;
+import com.spotify.sdk.android.auth.AuthorizationClient;
+import com.spotify.sdk.android.auth.AuthorizationRequest;
+import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 import android.util.Log;
 import android.widget.ImageView;
@@ -36,18 +39,13 @@ import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 
-import com.spotify.protocol.client.Subscription;
-import com.spotify.protocol.types.PlayerState;
-import com.spotify.protocol.types.Track;
 import com.squareup.picasso.Picasso;
 
-import com.spotify.sdk.android.auth.AuthorizationClient;
-import com.spotify.sdk.android.auth.AuthorizationRequest;
-import com.spotify.sdk.android.auth.AuthorizationResponse;
 
 public class SearchActivity extends AppCompatActivity {
     //Pause/Play button
-    Button PausePlay;
+    private static final int REQUEST_CODE = 1337;
+    public static SpotifyClass spotifyClass;
 
     //Holds the physical genre text, artist text, and the recommendations
     TextView genreText;
@@ -72,15 +70,80 @@ public class SearchActivity extends AppCompatActivity {
 
     // set popularity parameters
     String minPop = "0";
-    String maxPop = "10";
+    String maxPop = "5";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQBbB_HhtKHzkr0Pq8DD5S54bK5Z4_LFAwr1xuqYI7fr4pwbWX_62_o5n5Qp4ai2fVrhPa-k-a-3a5-dqE19TKeEk5Lvr3V6Q1KH6rHBY9YUzNbNOPfwENgNBA0EL36irtW20xnKIQYhxnYcyzJiwZz1wRCdkFr9swg";
+    //String token = "BQBbB_HhtKHzkr0Pq8DD5S54bK5Z4_LFAwr1xuqYI7fr4pwbWX_62_o5n5Qp4ai2fVrhPa-k-a-3a5-dqE19TKeEk5Lvr3V6Q1KH6rHBY9YUzNbNOPfwENgNBA0EL36irtW20xnKIQYhxnYcyzJiwZz1wRCdkFr9swg";
     // Spotify authentication vars
+    String token;
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
     private static final String REDIRECT_URI = "com.example.undersound://callback/";
     private SpotifyAppRemote mSpotifyAppRemote;
+
+    //Suppressing Lint for signing report
+
+    @SuppressLint("all")
+    @Override
+    protected void onStart() {
+        spotifyClass = new SpotifyClass();
+        super.onStart();
+
+        LogIn();
+    }
+
+    @SuppressLint("all")
+    public void LogIn() {
+        AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(spotifyClass.CLIENT_ID, AuthorizationResponse.Type.TOKEN, spotifyClass.REDIRECT_URI);
+        builder.setScopes(new String[]{"streaming"});
+        AuthorizationRequest request = builder.build();
+        AuthorizationClient.openLoginActivity(this, REQUEST_CODE, request);
+
+        ConnectionParams connP = new ConnectionParams.Builder(spotifyClass.CLIENT_ID).setRedirectUri(spotifyClass.REDIRECT_URI).showAuthView(true).build();
+
+        SpotifyAppRemote.connect(this, connP, new Connector.ConnectionListener() {
+            public void onConnected(SpotifyAppRemote spotifyAppRemote) {
+                spotifyClass.mSpotifyAppRemote = spotifyAppRemote;
+                Log.d("Testing!!!", "Connected");
+
+                connected();
+            }
+
+            public void onFailure(Throwable throwable) {
+                Log.e("Testing!!!", throwable.getMessage(), throwable);
+                //Something went wrong when attempting to connect! Handle errors here
+            }
+        });
+    }
+    public void connected(){
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+
+        // Check if result comes from the correct activity
+        if (requestCode == REQUEST_CODE) {
+            AuthorizationResponse response = AuthorizationClient.getResponse(resultCode, intent);
+
+            switch (response.getType()) {
+                // Response was successful and contains auth token
+                case TOKEN:
+                    // Handle successful response
+                    Log.d("TOKEN!!", response.getAccessToken());
+                    token = response.getAccessToken();
+                    break;
+
+                // Auth flow returned an error
+                case ERROR:
+                    // Handle error response
+                    Log.d("no token!", "no token!");
+                    break;
+
+                // Most likely auth flow was cancelled
+                default:
+                    // Handle other cases
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -244,41 +307,15 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        ConnectionParams connectionParams =
-                new ConnectionParams.Builder(CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URI)
-                        .showAuthView(true)
-                        .build();
-
-        SpotifyAppRemote.connect(this, connectionParams,
-                new Connector.ConnectionListener() {
-
-                    public void onConnected(SpotifyAppRemote spotifyAppRemote) {
-                        mSpotifyAppRemote = spotifyAppRemote;
-                        // Now you can start interacting with App Remote
-                        connected();
-                        Log.d("SearchActivity","Connected. Mine yuh");
-                    }
-
-                    public void onFailure(Throwable throwable) {
-                        // Something went wrong when attempting to connect!
-                        Log.e("SearchActivity", throwable.getMessage(), throwable);
-                    }
-                });
-    }
-
-    @Override
     protected void onStop() {
         super.onStop();
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
 
     // Connected
-    private void connected() {
+    //private void connected() {
         // Play the recommended track!
-        mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
+    //    mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
         // Pauses song! Need a button for this
         //mSpotifyAppRemote.getPlayerApi().pause();
 
@@ -294,7 +331,7 @@ public class SearchActivity extends AppCompatActivity {
                     }
                 });
          */
-    }
+
 
     //private void onPlayClick() {
     //    this.player.togglePlay();

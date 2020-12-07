@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UnderSound">
-        <activity android:name=".GenreActivity"></activity>
+        <activity android:name=".SpotifyClass"></activity>
+        <activity android:name=".GenreActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"
