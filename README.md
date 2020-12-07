@@ -22,3 +22,5 @@ Download at https://github.com/spotify/android-sdk/blob/master/app-remote-lib/RE
 SPOTIFY AUTHENTICATION LIBRARY
 This library is responsible for authenticating the user and fetching the access token that can subsequently be used to play music or in requests to the Spotify Web API.
 Download at https://github.com/spotify/android-auth/releases
+
+Note: In order for the app to work within Android Studio (i.e. developer mode, you must provide us your SHA1 code. This code can be generated via the steps: Gradle (top right tab) -> Tasks -> android -> double-click signingReport
