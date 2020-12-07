@@ -27,19 +27,12 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import com.spotify.android.appremote.api.ConnectionParams;
 import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.PlayerApi;
 import com.spotify.android.appremote.api.SpotifyAppRemote;
 import com.spotify.sdk.android.auth.AuthorizationClient;
 import com.spotify.sdk.android.auth.AuthorizationRequest;
 import com.spotify.sdk.android.auth.AuthorizationResponse;
 
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.spotify.android.appremote.api.ConnectionParams;
-import com.spotify.android.appremote.api.Connector;
-import com.spotify.android.appremote.api.SpotifyAppRemote;
 
 import com.squareup.picasso.Picasso;
 
@@ -74,9 +67,6 @@ public class SearchActivity extends AppCompatActivity {
     String minPop = "0";
     String maxPop = "5";
 
-    // pass token into this activity as a string
-    // this is a temporary token
-    //String token = "BQBbB_HhtKHzkr0Pq8DD5S54bK5Z4_LFAwr1xuqYI7fr4pwbWX_62_o5n5Qp4ai2fVrhPa-k-a-3a5-dqE19TKeEk5Lvr3V6Q1KH6rHBY9YUzNbNOPfwENgNBA0EL36irtW20xnKIQYhxnYcyzJiwZz1wRCdkFr9swg";
     // Spotify authentication vars
     String token;
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -84,7 +74,6 @@ public class SearchActivity extends AppCompatActivity {
     private SpotifyAppRemote mSpotifyAppRemote;
 
     //Suppressing Lint for signing report
-
     @SuppressLint("all")
     @Override
     protected void onStart() {
@@ -94,6 +83,7 @@ public class SearchActivity extends AppCompatActivity {
         LogIn();
     }
 
+    // authorization request
     @SuppressLint("all")
     public void LogIn() {
         AuthorizationRequest.Builder builder = new AuthorizationRequest.Builder(spotifyClass.CLIENT_ID, AuthorizationResponse.Type.TOKEN, spotifyClass.REDIRECT_URI);
@@ -240,6 +230,7 @@ public class SearchActivity extends AppCompatActivity {
 
                                                             spotifyClass.playSong(recTrackID);
 
+                                                            // create pause/play button and functionality
                                                             pausebutton = (Button) findViewById(R.id.pausebutton);
                                                             pausebutton.setOnClickListener(new View.OnClickListener() {
                                                                 public void onClick(View view) {
@@ -331,31 +322,6 @@ public class SearchActivity extends AppCompatActivity {
         super.onStop();
         SpotifyAppRemote.disconnect(mSpotifyAppRemote);
     }
-
-    // Connected
-    //private void connected() {
-        // Play the recommended track!
-    //    mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
-        // Pauses song! Need a button for this
-        //mSpotifyAppRemote.getPlayerApi().pause();
-
-
-        // Subscribe to PlayerState -- need for Pause/Play?
-        /*mSpotifyAppRemote.getPlayerApi()
-                .subscribeToPlayerState()
-                .setEventCallback(playerState -> {
-                    final Track track = playerState.track;
-                    if (track != null) {
-                        Log.d("SearchActivity", track.name + " by " + track.artist.name);
-                        //album_artwork.setImageResource(track.imageUri.hashCode());
-                    }
-                });
-         */
-
-
-    //private void onPlayClick() {
-    //    this.player.togglePlay();
-    //}
 
     private void initializeTextViews() {
         //Sets the texts to display the values

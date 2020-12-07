@@ -33,6 +33,7 @@ public class MainActivity extends Activity {
         artisttext = (EditText) findViewById(R.id.editArtist);
         tracktext = (EditText) findViewById(R.id.editTrack);
 
+        // startbutton (launches SearchActivity.java) creation and functionality
         startbutton = (Button) findViewById(R.id.button);
         startbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +50,7 @@ public class MainActivity extends Activity {
             }
         });
 
+        // genrebutton (launches GenreActivity.java) creation and functionality
         genrebutton = (Button) findViewById(R.id.genrebutton);
         genrebutton.setOnClickListener(new View.OnClickListener() {
             @Override

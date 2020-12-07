@@ -15,6 +15,7 @@ import com.spotify.protocol.types.PlayerState;
 import com.spotify.protocol.types.Track;
 import com.spotify.protocol.client.ErrorCallback;
 
+// SpotifyClass creation for organization purposes
 public class SpotifyClass extends android.app.Activity{
     @SuppressLint("all")
     public static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
@@ -23,10 +24,7 @@ public class SpotifyClass extends android.app.Activity{
 
     ConnectionParams connectionParams = new ConnectionParams.Builder(CLIENT_ID).setRedirectUri(REDIRECT_URI).showAuthView(true).build();
 
-    /*
-     * takes in a spotify id (just get it straight from the database)
-     * plays it
-     */
+    // function to take in track id and call playSong function
     public void playSong(String id) {
         String uri = "spotify:track:" + id;
 
@@ -40,9 +38,7 @@ public class SpotifyClass extends android.app.Activity{
         mSpotifyAppRemote.getPlayerApi().pause();
     }
 
-    /*
-     * the bit that actually plays stuff
-     */
+    // plays track
     private void playUri(String uri) {
         mSpotifyAppRemote.getPlayerApi().pause();
         mSpotifyAppRemote.getPlayerApi()
@@ -57,9 +53,6 @@ public class SpotifyClass extends android.app.Activity{
 
     }
 
-    /*
-     * idk what the rest of these methods do really
-     */
     private void subscribeToPlayerState() {
         // Subscribe to PlayerState
         mSpotifyAppRemote.getPlayerApi().subscribeToPlayerState().setEventCallback(new Subscription.EventCallback<PlayerState>() {
