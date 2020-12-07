@@ -76,7 +76,7 @@ public class SearchActivity extends AppCompatActivity {
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQDvK27MSyzHA5TXn_sW5HgDe1Ey-0GFN8nFPJ1IiQSyd-52izC4ZtJGRVn_LthZZic9lB9sPA3as_OznLVe1jx_v9v_6Au6t4YBPOKLxBZA4odrdqTKBrU5ntHcar-RZy-wQo6mZPkuypBgUZKxTWr2zuM3dXFQdU4";
+    String token = "BQBbB_HhtKHzkr0Pq8DD5S54bK5Z4_LFAwr1xuqYI7fr4pwbWX_62_o5n5Qp4ai2fVrhPa-k-a-3a5-dqE19TKeEk5Lvr3V6Q1KH6rHBY9YUzNbNOPfwENgNBA0EL36irtW20xnKIQYhxnYcyzJiwZz1wRCdkFr9swg";
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
     private static final String REDIRECT_URI = "com.example.undersound://callback/";
