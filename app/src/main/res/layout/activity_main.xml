@@ -41,14 +41,16 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editArtist" />
 
     <EditText
         android:id="@+id/editArtist"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:layout_above="@+id/editTrack"
+        android:layout_marginTop="12dp"
         android:layout_marginBottom="228dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
@@ -59,8 +61,10 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.477"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/genrebutton"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/text_prompt"
@@ -101,18 +105,18 @@
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTrack"
-        app:layout_constraintVertical_bias="0.938" />
+        app:layout_constraintVertical_bias="0.937" />
 
     <Button
         android:id="@+id/genrebutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="207dp"
+        android:layout_height="55dp"
+        android:background="#142faA"
         android:fontFamily="@font/montserrat"
         android:text="VIEW LIST OF GENRES"
-        android:background="#142faA"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
