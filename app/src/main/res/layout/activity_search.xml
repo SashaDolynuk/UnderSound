@@ -61,21 +61,21 @@
     <TextView
         android:id="@+id/userEntryTrack"
         android:layout_width="151dp"
-        android:layout_height="31dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="36dp"
         android:layout_marginRight="36dp"
-        android:fontFamily="@font/montserrat"
-        android:gravity="center"
-        android:textColor="#FFFFFF"
-        android:textSize="17sp"
         android:layout_weight="1"
         android:ellipsize="none"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
         android:maxLines="100"
         android:scrollHorizontally="false"
+        android:textColor="#FFFFFF"
+        android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
-        app:layout_constraintVertical_bias="0.137" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <TextView
         android:id="@+id/userEntryArtist"
@@ -99,8 +99,8 @@
     <TextView
         android:id="@+id/recTrack"
         android:layout_width="346dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="440dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="309dp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -109,15 +109,15 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/recArtist"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/recArtist"
         android:layout_width="273dp"
         android:layout_height="33dp"
+        android:layout_marginTop="375dp"
         android:layout_marginBottom="100dp"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -126,7 +126,9 @@
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userEntryTrack"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -148,8 +150,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.875" />
+        app:layout_constraintTop_toBottomOf="@+id/TitleRecPage"
+        app:layout_constraintVertical_bias="0.927" />
 
     <Button
         android:id="@+id/pausebutton"
