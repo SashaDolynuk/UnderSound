@@ -5,7 +5,6 @@
     <string name="edit_track">Enter a track</string>
     <string name="button_send">Send</string>
     <string-array name="genre_array">
-        <item>Enter Genre</item>
         <item>acoustic</item>
         <item>afrobeat</item>
         <item>alt-rock</item>

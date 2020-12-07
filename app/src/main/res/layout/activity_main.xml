@@ -9,31 +9,47 @@
     android:background="#61676b">
 
     <EditText
+        android:id="@+id/editGenre"
+        android:layout_width="210dp"
+        android:layout_height="69dp"
+        android:ems="10"
+        android:fontFamily="@font/montserrat"
+        android:gravity="center"
+        android:hint="@string/edit_genre"
+        android:textColorHint = "#FFFFFF"
+        android:textColor = "#FFFFFF"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_prompt"
+        app:layout_constraintVertical_bias="0.071" />
+
+    <EditText
         android:id="@+id/editTrack"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:layout_above="@+id/editGenre"
-        android:layout_marginBottom="164dp"
+        android:layout_marginBottom="136dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
         android:hint="@string/edit_track"
         android:inputType="textPersonName"
-        android:textColor = "#FFFFFF"
-        android:textColorHint = "#FFFFFF"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editArtist"
-        app:layout_constraintVertical_bias="0.62" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/editArtist"
         android:layout_width="210dp"
         android:layout_height="69dp"
         android:layout_above="@+id/editTrack"
-        android:layout_marginBottom="276dp"
+        android:layout_marginBottom="228dp"
         android:ems="10"
         android:fontFamily="@font/montserrat"
         android:gravity="center"
@@ -43,7 +59,7 @@
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -79,27 +95,29 @@
         android:layout_width="207dp"
         android:layout_height="55dp"
         android:layout_marginBottom="44dp"
-        android:background="#d9d9d9"
+        android:background="#142faA"
         android:fontFamily="@font/montserrat"
         android:text="LET'S GET STARTED!"
-        android:textColor="#173b82"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTrack" />
+        app:layout_constraintTop_toBottomOf="@+id/editTrack"
+        app:layout_constraintVertical_bias="0.938" />
 
-    <Spinner
-        android:id="@+id/editGenre"
-        android:layout_width="210dp"
-        android:layout_height="69dp"
-        android:gravity = "center"
-        android:fontFamily = "@font/montserrat"
-        android:textColor = "#FFFFFF"
-        android:background = "#61676b"
-        app:layout_constraintBottom_toTopOf="@+id/editArtist"
+    <Button
+        android:id="@+id/genrebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat"
+        android:text="VIEW LIST OF GENRES"
+        android:background="#142faA"
+        android:textColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_prompt" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.543" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

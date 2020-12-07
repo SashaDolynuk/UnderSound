@@ -21,15 +21,16 @@ import android.content.Intent;
 public class MainActivity extends Activity implements OnClickListener {
 
     private Button startbutton;
-   // private EditText genretext;
+    private Button genrebutton;
+    private EditText genretext;
     private EditText artisttext;
     private EditText tracktext;
-    private Spinner genretext;
+    //private Spinner genretext;
 
     public static final String TAG_GENRE = "genre";
     public static final String TAG_ARTIST = "artist";
     public static final String TAG_TRACK = "track";
-    private String genre;
+    //private String genre;
     private static final String TAG_DEBUG = MainActivity.class.getName();
 
 
@@ -38,48 +39,34 @@ public class MainActivity extends Activity implements OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        genretext = (Spinner) findViewById(R.id.editGenre); //genre assigned via spinner
+        genretext = (EditText) findViewById(R.id.editGenre);
         artisttext = (EditText) findViewById(R.id.editArtist);
         tracktext = (EditText) findViewById(R.id.editTrack);
         startbutton = (Button) findViewById(R.id.button);
 
-        //creates an array adapter using the string array and default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.genre_array, android.R.layout.simple_spinner_item);
-        //specifies the layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genretext.setAdapter(adapter);
+        genrebutton = (Button) findViewById(R.id.genrebutton);
+        genrebutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                genreactivity();
+            }
+        });
+
         //sets
         startbutton.setOnClickListener(this);
     }
 
-    // when something in spinner is selected
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using parent.getItemAtPosition(pos)
-        if (pos == 0){
-            Toast.makeText(MainActivity.this, "Please enter a valid genre!", Toast.LENGTH_LONG).show();
-            pos = 1;
-        }
-        String tempgenre = parent.getItemAtPosition(pos).toString();
-
-        // Showing selected spinner item
-        Toast.makeText(parent.getContext(), "Selected: " + tempgenre, Toast.LENGTH_LONG).show();
-        //puts the string in a global variable
-        genre = tempgenre;
-    }
-
-    //leaves it be
-    public void onNothingSelected(AdapterView<?> parent) {
-        Toast.makeText(MainActivity.this, "Please enter a valid genre!", Toast.LENGTH_LONG).show();
+    private void genreactivity() {
+        Intent genreactivity = new Intent(this, GenreActivity.class);
+        startActivity(genreactivity);
     }
 
     @Override
     public void onClick(View v) {
+        String genre = genretext.getText().toString();
         String artist = artisttext.getText().toString();
         String track = tracktext.getText().toString();
 
-        if (artist.length() == 0 || track.length() == 0) {
+        if (genre.length() == 0 || artist.length() == 0 || track.length() == 0) {
             Toast.makeText(MainActivity.this, "Please enter a valid artist and track!", Toast.LENGTH_LONG).show();
             return;
         }
@@ -89,6 +76,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
         //includes global variable genre
         launchResultActivity(genre, artist, track);
+        startActivity(new Intent(MainActivity.this, GenreActivity.class));
     }
 
     private void launchResultActivity(String genre, String artist, String track)

@@ -72,12 +72,11 @@ public class SearchActivity extends AppCompatActivity {
 
     // set popularity parameters
     String minPop = "0";
-    String maxPop = "25";
+    String maxPop = "10";
 
     // pass token into this activity as a string
     // this is a temporary token
-    String token = "BQBIDHHEyXY_RHrgcMJrcoCWjqloGYP3y9bgtSIgmjuJIk6E4uQaVFlRvoyRtqlsEtMwHztzue-o2f0yv8V5PKgE5tg5MsNxv0cLjJUaPicZBHGSVNCDHylFpdypfZ7gnpz-b1WTnezzS3-mtg";
-
+    String token = "BQDvK27MSyzHA5TXn_sW5HgDe1Ey-0GFN8nFPJ1IiQSyd-52izC4ZtJGRVn_LthZZic9lB9sPA3as_OznLVe1jx_v9v_6Au6t4YBPOKLxBZA4odrdqTKBrU5ntHcar-RZy-wQo6mZPkuypBgUZKxTWr2zuM3dXFQdU4";
     // Spotify authentication vars
     private static final String CLIENT_ID = "2f184ad41615437489cfd03177eade83";
     private static final String REDIRECT_URI = "com.example.undersound://callback/";
@@ -189,6 +188,7 @@ public class SearchActivity extends AppCompatActivity {
                                                 // Display album cover via Picasso
                                                 ImageView album_artwork = (ImageView) findViewById(R.id.AlbumCover);
                                                 Picasso.get().load(albumCoverURL).into(album_artwork);
+
                                             }
                                             catch (JSONException e) {
                                                 e.printStackTrace();
@@ -279,7 +279,6 @@ public class SearchActivity extends AppCompatActivity {
     private void connected() {
         // Play the recommended track!
         mSpotifyAppRemote.getPlayerApi().play("spotify:track:" + recTrackID);
-
         // Pauses song! Need a button for this
         //mSpotifyAppRemote.getPlayerApi().pause();
 
